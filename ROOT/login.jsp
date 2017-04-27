@@ -2,16 +2,16 @@
 
 <html>
 	<head>
-		<title>Welcome to the CSc 460 Supermarket</title>
-		<meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
-		<script type="text/javascript" src="scripts/search.js"></script>
+		<title>McCannMart | Login</title>
+		<meta charset=UTF-8" />
+		<script type="text/javascript"></script>
 
 		<style>
 			body {
-	        	background-image: url("back.jpg");
+	        	background-image: url("lolmccann.png");
 	        	background-size: cover;
 	        	background-repeat: no-repeat;
-	        	background-position: center center;
+	        	
 			}
 
 			input[type=text], input[type=password] {
@@ -19,7 +19,7 @@
     			padding: 12px 20px;
     			margin: 8px 0;
     			display: inline-block;
-    			border: 1px solid #ccc;
+    			border: 3px solid #ccc;
     			box-sizing: border-box;
 			}
 
@@ -42,16 +42,13 @@
 		<br/><br/><br/>
 
 		<div align="center">
-  		<h1 style="color: white"><b>Welcome to the CSc460 Supermarket</b></h1>
+  		<h1 style="color: white"><b>Welcome to McCannMart!</b></h1>
   		</div>
 
 		<div class="container" align="center">
-    		<label style="color: white"><b>Username</b></label>
-    		<input type="text" id="myText" placeholder="Please Enter Username" required>
+    		<input type="text" id="myText" placeholder="Username" required>
     		<br/>
-
-    		<label style="color: white"><b>Password </b></label>
-    		<input type="password" placeholder="Please Enter Password" required>
+    		<input type="password" placeholder="Password" required>
     		<br/>
         
     		<button type="button" id="btn_search" onclick="window.location.href='welcome.jsp'">Login</button>
@@ -59,19 +56,11 @@
     		<br/><br/>
   		</div>
 
-  		<div align="center" style="position: absolute; bottom: 5px;">
+  		<div align="center" style="position: absolute; bottom: 1px">
   			<hr/>
-    		<p style="color: white"> &copy; Designed by Yawen Chen and Jacob Combs </p>
+    		<p style="color: orange"><b> &copy; Designed by Alex Yee, Bijan Anjavi, Colin Widner, and Monica Sproul </b></p>
     	</div>
 
-<!-- 
-    	<script>
-			function myFunction() {
-    			var x = document.getElementById("myText").value;
-    			window.location.href="./welcome.html";
-			}
-		</script>
- -->
 	</body>
 </html>
 

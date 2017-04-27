@@ -4,7 +4,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>Search Results</title>
+		<title>Customer Homepage</title>
 		
 		<style>
 			button {
@@ -84,11 +84,11 @@
 	</div>
 	
 	<br/>
-    <center><button onClick="parent.location='SampleIndex.jsp'">Logout</button></center>
+    <center><button onClick="parent.location='index.html'">Logout</button></center>
     
     <div align="center" style="position: absolute; bottom: 5px;">
   		<hr/>
-    	<p style="color: Black"> &copy; Designed by Yawen Chen and Jacob Combs </p>
+    	<p style="color: orange"><b> &copy; Designed by Alex Yee, Bijan Anjavi, Colin Widner, and Monica Sproul </b></p>
     </div>
 	</body>
 </html>
