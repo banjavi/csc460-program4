@@ -70,14 +70,14 @@ public class DatabaseController {
 	    }
 
 //example method
-	  public Vector<String> FindAllProducts() {
-	    String sql_query = "SELECT * FROM yawenchen.products order by barcode";
+		  public Vector<String> FindAllProducts() {
+	    String sql_query = "SELECT * FROM banjavi.products order by name";
 	    try {
 	      ResultSet rs  = statement_.executeQuery(sql_query);
 	      Vector<String> result_employees = new Vector<String>();
 	      while (rs.next()) {
-	         String temp_record = rs.getString("BARCODE") + "##" + rs.getString("NAME") +
-	             "##" + rs.getDouble("PRICE") + "##" + rs.getInt("QUANTITY");
+	         String temp_record = rs.getString("PRODUCTID") + "##" + rs.getString("NAME") +
+	             "##" + rs.getDouble("STOCK") + "##" +rs.getDouble("PRICE") + "##" + rs.getInt("CATEGORY");
 	        result_employees.add(temp_record);
 	      }
 	      return result_employees;
@@ -86,6 +86,7 @@ public class DatabaseController {
 	    }
 	    return null;
 	  }
+
 
 
 	  /**
