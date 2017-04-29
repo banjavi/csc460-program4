@@ -13,7 +13,7 @@
 	        	background-image: url("lolmccann.png");
 	        	background-size: cover;
 	        	background-repeat: no-repeat;
-	        	
+
 			}
 
 			input[type=text], input[type=password] {
@@ -48,14 +48,14 @@
   		</div>
 
 		<div class="container" align="center">
-		<form action="loginController.jsp" method="POST">    		
-		<input type="text" name="user" placeholder="Username" required>
+		<form action="loginServlet.jsp" method="POST">
+		<input type="text" name="username" placeholder="Username" required>
     		<br/>
-    		<input type="password" name="pass" placeholder="Password" required>
+    		<input type="password" name="password" placeholder="Password" required>
     		<br/>
     		<button type="submit" id="btn_search">Login</button>
-    		<button type="button" id="btn_return" onclick="window.location.href='index.html'">Back</button>
-		</form>    		
+    		<!-- <button type="button" id="btn_return" onclick="window.location.href='index.html'">Back</button> -->
+		</form>
 		<br/><br/>
   		</div>
 
@@ -66,4 +66,3 @@
 
 	</body>
 </html>
-

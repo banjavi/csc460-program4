@@ -1,0 +1,395 @@
+package dbController;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+import java.sql.ResultSet;
+import java.util.*;
+import java.io.*;
+import java.sql.*; 
+/**
+ * Servlet implementation class for Servlet: DatabaseController
+ *
+ */
+public class DatabaseController {
+  static final long serialVersionUID = 1L;
+  /**
+   * A handle to the connection to the DBMS.
+   */
+  protected Connection connection_;
+  /**
+   * A handle to the statement.
+   */
+  protected Statement statement_;
+  /**
+   * The connect string to specify the location of DBMS
+   */
+  protected String connect_string_ = null;
+  /**
+   * The password that is used to connect to the DBMS.
+   */
+  protected String password = null;
+  /**
+   * The username that is used to connect to the DBMS.
+   */
+  protected String username = null;
+
+
+  public DatabaseController() {
+    // your cs login name
+    username = "yawenchen"; 
+    // your Oracle password, NNNN is the last four digits of your CSID
+    password = "a8214";
+    connect_string_ = "jdbc:oracle:thin:@aloe.cs.arizona.edu:1521:oracle";
+  }
+
+
+  /**
+   * Closes the DBMS connection that was opened by the open call.
+   */
+  public void Close() {
+    try {
+      statement_.close();
+      connection_.close();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    connection_ = null;
+  }
+
+
+  /**
+   * Commits all update operations made to the dbms.
+   * If auto-commit is on, which is by default, it is not necessary to call
+   * this method.
+   */
+  public void Commit() {
+    try {
+      if (connection_ != null && !connection_.isClosed())
+        connection_.commit();
+    } catch (SQLException e) {
+      System.err.println("Commit failed");
+      e.printStackTrace();
+    }
+  }
+
+    public void Open() {
+	try {
+	    Class.forName("oracle.jdbc.OracleDriver");
+	    connection_ = DriverManager.getConnection(connect_string_, username, password);
+	    statement_ = connection_.createStatement();
+	    return;
+	} catch (SQLException sqlex) {
+	    sqlex.printStackTrace();
+	} catch (ClassNotFoundException e) {
+	    e.printStackTrace();
+	    System.exit(1); //programemer/dbsm error
+	} catch (Exception ex) {
+	    ex.printStackTrace();
+	    System.exit(2);
+	}
+    }
+
+
+  public Vector<String> FindAllEmployees() {
+    String sql_query = "SELECT * FROM yawenchen.service order by SNO";
+    try {
+      ResultSet rs  = statement_.executeQuery(sql_query);
+      Vector<String> result_employees = new Vector<String>();
+      while (rs.next()) {
+         String temp_record = rs.getString("SNO") + "##" + rs.getString("SVNAME") +
+             "##" + rs.getInt("PRICE") + "##" + rs.getString("MATERIAL");
+        result_employees.add(temp_record);
+      }
+      return result_employees;
+    } catch (SQLException sqlex) {
+      sqlex.printStackTrace();
+    }
+    return null;
+  }
+    
+    public Vector<String> FindAllSupplis(){
+        String sql_query = "SELECT * FROM yeli.supplier order by SID";
+        try {
+            ResultSet rs  = statement_.executeQuery(sql_query);
+            Vector<String> result_employees = new Vector<String>();
+            while (rs.next()) {
+                String temp_record = rs.getInt("SID") + "##" + rs.getString("SPNAME") +
+                "##" + rs.getInt("QUANTITY");
+                result_employees.add(temp_record);
+            }
+            return result_employees;
+        } catch (SQLException sqlex) {
+            sqlex.printStackTrace();
+        }
+        return null;
+    }
+    
+    public Vector<String> FindAllApps() {
+        String sql_query = "SELECT * FROM yeli.visit1 order by dates";
+        try {
+            ResultSet rs = statement_.executeQuery(sql_query);
+            Vector<String> result_employees = new Vector<String>();
+            while (rs.next()) {
+                String temp_record = rs.getInt("PID") + "##" + rs.getString("SID") + "##" + rs.getDate("DATES") + "##"
+                        + rs.getInt("RANK") + "##" + rs.getInt("ROOM");
+                result_employees.add(temp_record);
+            }
+            return result_employees;
+        } catch (SQLException sqlex) {
+            sqlex.printStackTrace();
+        }
+        return null;
+    }
+    
+    public Vector<String> FindAllPats(){
+        String sql_query = "SELECT * FROM wenjiezhang.patient order by PID";
+        try {
+            ResultSet rs  = statement_.executeQuery(sql_query);
+            Vector<String> result_employees = new Vector<String>();
+            while (rs.next()) {
+                String temp_record = rs.getInt("PID") + "##" + rs.getString("NAME") +
+                "##" + rs.getString("CONTACT") + "##" + rs.getString("ADDRESS") + "##" + rs.getString("INSURANCE") +
+                "##" + rs.getString("CONTENTS");
+                result_employees.add(temp_record);
+            }
+            return result_employees;
+        } catch (SQLException sqlex) {
+            sqlex.printStackTrace();
+        }
+        return null;
+    }
+    
+    public Vector<String> FindAllLabs(){
+        String sql_query = "SELECT * FROM yeli.room1 order by Dates";
+        try {
+            ResultSet rs  = statement_.executeQuery(sql_query);
+            Vector<String> result_employees = new Vector<String>();
+            while (rs.next()) {
+                String temp_record = rs.getInt("RNO") + "##" + rs.getDate("Dates");
+                result_employees.add(temp_record);
+            }
+            return result_employees;
+        } catch (SQLException sqlex) {
+            sqlex.printStackTrace();
+        }
+        return null;
+    }
+    
+    public Vector<String> FindPPersonalInfo(String PID){
+        String sql_query = "SELECT * FROM wenjiezhang.patient where pid = " + PID;
+        try {
+            ResultSet rs  = statement_.executeQuery(sql_query);
+            Vector<String> result_employees = new Vector<String>();
+            while (rs.next()) {
+                String temp_record = rs.getInt("PID") + "##" + rs.getString("NAME") +
+                "##" + rs.getString("CONTACT") + "##" + rs.getString("ADDRESS") + "##" + rs.getString("INSURANCE") +
+                "##" + rs.getString("CONTENTS");
+                result_employees.add(temp_record);
+            }
+            return result_employees;
+        } catch (SQLException sqlex) {
+            sqlex.printStackTrace();
+        }
+        return null;
+    }
+    
+    public Vector<String> FindPPersonalHist(String PID){
+        String sql_query = "SELECT * FROM yeli.visit1 where pid = " + PID;
+        try {
+            ResultSet rs  = statement_.executeQuery(sql_query);
+            Vector<String> result_employees = new Vector<String>();
+            while (rs.next()) {
+                String temp_record = rs.getInt("PID") + "##" + rs.getString("SID") +
+                "##" + rs.getDate("dates") + "##" + rs.getInt("rank") + "##" + rs.getString("room");
+                result_employees.add(temp_record);
+            }
+            return result_employees;
+        } catch (SQLException sqlex) {
+            sqlex.printStackTrace();
+        }
+        return null;
+    }
+    
+    public int insertSupply(String newName, String newQty){
+    	int qtyInNum = Integer.parseInt(newQty);
+    	String sql_query = "INSERT INTO yeli.supplier VALUES ( (SELECT MAX(SID)+1 FROM yeli.supplier), '" + newName + "', " + qtyInNum + ")";
+    	try {
+            statement_.executeQuery(sql_query);
+            statement_.executeQuery("commit");
+            return 1;
+        } catch (SQLException sqlex) {
+            sqlex.printStackTrace();
+            System.exit(-1);
+        }
+        return 0;
+    }
+    
+    public int makeApp(String newName, String newQty){
+    	int qtyInNum = Integer.parseInt(newQty);
+    	String sql_query = "INSERT INTO yeli.supplier VALUES ( (SELECT MAX(SID)+1 FROM yeli.supplier), '" + newName + "', " + qtyInNum + ")";
+    	try {
+            statement_.executeQuery(sql_query);
+            statement_.executeQuery("commit");
+            return 1;
+        } catch (SQLException sqlex) {
+            sqlex.printStackTrace();
+            System.exit(-1);
+        }
+        return 0;
+    }
+    
+    public int insertPat(String pn, String ci, String ad, String ii, String cm){
+		
+    	String sql_query = "INSERT INTO wenjiezhang.patient VALUES ( (SELECT MAX(PID)+1 FROM wenjiezhang.patient), '" + pn + "', '" + ci + "', '" + ad + "', '" + ii + "', '" + cm + "')";
+    	try {
+            statement_.executeQuery(sql_query);
+            statement_.executeQuery("commit");
+            return 1;
+        } catch (SQLException sqlex) {
+            sqlex.printStackTrace();
+            System.exit(-1);
+        }
+        return 0;
+    }
+    
+    public int insertService(String sid, String sname, String pr, String mat){
+    	String sql_query = "INSERT INTO yawenchen.service VALUES ('" + sid + "', '" + sname + "', " + pr + ", '" + mat + "')";
+    	try {
+            statement_.executeQuery(sql_query);
+            statement_.executeQuery("commit");
+            return 1;
+        } catch (SQLException sqlex) {
+            sqlex.printStackTrace();
+            System.exit(-1);
+        }
+        return 0;
+    }
+    
+    public int deleteSupply(String id){
+    	int SID = Integer.parseInt(id);
+    	String sql_query = "DELETE FROM yeli.supplier WHERE SID= "+SID;
+    	try {
+            statement_.executeQuery(sql_query);
+            statement_.executeQuery("commit");
+            return 1;
+        } catch (SQLException sqlex) {
+            sqlex.printStackTrace();
+            System.exit(-1);
+        }
+        return 0;
+    }
+    
+    public int deleteSer (String id){
+    	String sql_query = "DELETE FROM yawenchen.service WHERE SNO = "+ id;
+    	try {
+            statement_.executeQuery(sql_query);
+            statement_.executeQuery("commit");
+            return 1;
+        } catch (SQLException sqlex) {
+            sqlex.printStackTrace();
+            System.exit(-1);
+        }
+        return 0;
+    }
+    
+     public int updateSupply(String iD, String qty){
+    	int newID = Integer.parseInt(iD);
+    	int newQty = Integer.parseInt(qty);
+
+    	String sql_query = "UPDATE yeli.supplier SET QUANTITY= "+newQty+" WHERE SID = "+newID;
+    	try {
+            statement_.executeQuery(sql_query);
+            statement_.executeQuery("commit");
+            return 1;
+        } catch (SQLException sqlex) {
+            sqlex.printStackTrace();
+            System.exit(-1);
+        }
+        return 0;
+    }
+
+	public int deletePatient(String iD) {
+        int newID = Integer.parseInt(iD);
+
+        String sql_query = "delete wenjiezhang.patient where pid = " + newID;
+        try {
+            statement_.executeQuery(sql_query);
+            statement_.executeQuery("commit");
+            return 1;
+        } catch (SQLException sqlex) {
+            sqlex.printStackTrace();
+            System.exit(-1);
+        }
+        return 0;
+    }
+    
+    /**
+     * deleteAppoint(), delete a existed appointment/visit from visit table
+     */
+    public int deleteAppoint(String pid, String sid, String newDate) {
+        int deletedID = Integer.parseInt(pid);
+
+        String delete_visit = "delete from yeli.visit1 where PID = " + deletedID + " AND SID ='" + sid
+                + "' AND DATES = to_date('" + newDate + "','YYYYMMDD')";
+
+        String delete_room = "delete from yeli.room1 where RNO= (select ROOM FROM yeli.visit1 where PID = "+deletedID 
+        		+" AND SID='"+sid+"' AND DATES=to_date('"+newDate+"','YYYYMMDD'))";
+
+        try {
+            statement_.executeQuery(delete_room);
+            statement_.executeQuery("commit");
+            statement_.executeQuery(delete_visit);
+            statement_.executeQuery("commit");
+            return 1;
+        } catch (SQLException sqlex) {
+            sqlex.printStackTrace();
+            System.exit(-1);
+        }
+        return 0;
+    }
+    
+    
+    public int InsertVisit(String pid, String sid) {
+        int newID = Integer.parseInt(pid);
+        int newSid = Integer.parseInt(sid);
+
+        String newVisit = "insert into yeli.visit1 values(" + newID + ",'" + sid
+                + "',(select MAX(DATES) from yeli.room1),1+NVL((select RANK from yeli.visit1 where pid = " + newID
+                + "),0),(select DISTINCT MOD((SELECT count(*) from yeli.room1),3 ) from yeli.room1))";
+        try {
+            statement_.executeQuery("insert into yeli.room1 values((select DISTINCT MOD((SELECT count(*) from yeli.room1),3 )+1 from yeli.room1),(select  MAX(DATES)+1 from yeli.room1 where RNO=(select DISTINCT MOD((SELECT count(*) from yeli.room1),3 )+1 from yeli.room1)))");
+            statement_.executeQuery("commit");
+            statement_.executeQuery(newVisit);
+            statement_.executeQuery("commit");
+
+            return 1;
+        } catch (SQLException sqlex) {
+            sqlex.printStackTrace();
+            System.exit(-1);
+        }
+        return 0;
+    }
+    
+    public boolean isInDB(String pd){
+    	int myPid = Integer.parseInt(pd);
+    	
+    	String sql_query =  "select * from wenjiezhang.patient where pid = " + myPid;
+    	
+    	try {
+            ResultSet rs  = statement_.executeQuery(sql_query);
+            Vector<String> result_employees = new Vector<String>();
+            
+            if(rs.next()){
+            	return true;
+            }else{
+            	return false;
+            }
+        } catch (SQLException sqlex) {
+            sqlex.printStackTrace();
+        }
+        return false;
+    }
+}

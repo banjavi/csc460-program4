@@ -52,22 +52,7 @@ public class DatabaseController {
 	    }
 	    connection_ = null;
 	  }
-	  public void Open() {
-	        try {
-	            Class.forName("oracle.jdbc.OracleDriver");
-	            connection_ = DriverManager.getConnection(connect_string_, username, password);
-	            statement_ = connection_.createStatement();
-	            return;
-	        } catch (SQLException sqlex) {
-	            sqlex.printStackTrace();
-	        } catch (ClassNotFoundException e) {
-	            e.printStackTrace();
-	            System.exit(1); //programemer/dbsm error
-	        } catch (Exception ex) {
-	            ex.printStackTrace();
-	            System.exit(2);
-	        }
-	    }
+
 
 	  /**
 	   * Commits all update operations made to the dbms.
@@ -84,25 +69,61 @@ public class DatabaseController {
 	    }
 	  }
 
+	  public void Open() {
+	    try {
+	        Class.forName("oracle.jdbc.OracleDriver");
+	        connection_ = DriverManager.getConnection(connect_string_, username, password);
+	        statement_ = connection_.createStatement();
+	        return;
+	    } catch (SQLException sqlex) {
+	        sqlex.printStackTrace();
+	    } catch (ClassNotFoundException e) {
+	        e.printStackTrace();
+	        System.exit(1); //programemer/dbsm error
+	    } catch (Exception ex) {
+	        ex.printStackTrace();
+	        System.exit(2);
+	    }
+	    }
+
+
 		//example method
 	  public Vector<String> FindAllProducts() {
-    String sql_query = "SELECT * FROM banjavi.products order by name";
-    try {
-      ResultSet rs  = statement_.executeQuery(sql_query);
-      Vector<String> result_employees = new Vector<String>();
-      while (rs.next()) {
-         String temp_record = rs.getString("PRODUCTID") + "##" + rs.getString("NAME") +
-             "##" + rs.getDouble("STOCK") + "##" +rs.getDouble("PRICE") + "##" + rs.getInt("CATEGORY");
-        result_employees.add(temp_record);
-      }
-      return result_employees;
-    } catch (SQLException sqlex) {
-      sqlex.printStackTrace();
-    }
-    return null;
-  }
+	    String sql_query = "SELECT * FROM banjavi.products order by name";
+	    try {
+	      ResultSet rs  = statement_.executeQuery(sql_query);
+	      Vector<String> result_employees = new Vector<String>();
+	      while (rs.next()) {
+	         String temp_record = rs.getString("PRODUCT_ID") + "##" + rs.getString("NAME") +
+	             "##" + rs.getDouble("STOCK") + "##" +rs.getDouble("PRICE") + "##" + rs.getInt("CATEGORY");
+	        result_employees.add(temp_record);
+	      }
+	      return result_employees;
+	    } catch (SQLException sqlex) {
+	      sqlex.printStackTrace();
+	    }
+	    return null;
+	  }
 
-	public static void main(String[] args) throws SQLException {
+		// there should either be 1 or 0 tuples returned - we need to prevent duplicate users later on
+		public String authenticate (String username, String password) {
+			String sql_query = "SELECT username, type FROM banjavi.users WHERE username= '" + username + "' AND password= '" + password + "'";
+			try {
+				ResultSet rs  = statement_.executeQuery(sql_query);
+				String result="";
+				if (rs.next())
+					 result = rs.getString("username") + "," + rs.getString("type");
+				else
+					result = "error";
+
+				return result;
+			} catch (SQLException sqlex) {
+				sqlex.printStackTrace();
+			}
+			return "error";
+		}
+
+
 
 
 		//1) customer order products
@@ -137,7 +158,7 @@ public class DatabaseController {
 //					+ null +", "+ productID + ", " + qty + ")");
 //
 
-		}
-	}
+
+
 
 }
