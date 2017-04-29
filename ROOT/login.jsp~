@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+<%@page import="java.util.*, java.lang.StringBuffer,
+	dbController.DatabaseController" %>
 
 <html>
 	<head>
@@ -23,7 +25,7 @@
     			box-sizing: border-box;
 			}
 
-			button {
+			button, submit{
 			    background-color: #4CAF50;
 			    color: white;
 			    padding: 14px 20px;
@@ -46,14 +48,15 @@
   		</div>
 
 		<div class="container" align="center">
-    		<input type="text" id="myText" placeholder="Username" required>
+		<form action="loginController.jsp" method="POST">    		
+		<input type="text" name="user" placeholder="Username" required>
     		<br/>
-    		<input type="password" placeholder="Password" required>
+    		<input type="password" name="pass" placeholder="Password" required>
     		<br/>
-        
-    		<button type="button" id="btn_search" onclick="window.location.href='welcome.jsp'">Login</button>
+    		<input type="submit" id="btn_search">Login</button>
     		<button type="button" id="btn_return" onclick="window.location.href='index.html'">Back</button>
-    		<br/><br/>
+		</form>    		
+		<br/><br/>
   		</div>
 
   		<div align="center" style="position: absolute; bottom: 1px">
