@@ -241,6 +241,58 @@ public class DatabaseController {
 			return false;
 		}
 
+	public Vector<String> GetPastSupplyOrdersManager(String query1,String input1, String query2,String input2){
+		//allows for two query options limited to show a certain date, user, or order;
+			Boolean q1 = false;
+			Boolean q2 = false;
+			String sql_query = "select * from orders";
+		
+			if(!query1.equals("N/A") ){
+				q1 = true;
+				if(query1.equals("DatePlaced")){
+					sql_query = sql_query + " where DatePlaced = " + input1;
+				}
+				else if(query1.equals("OrderID")){
+					sql_query = sql_query + " where OrderID = " + input1;
+				}
+				else if(query1.equals("UserID")){
+					sql_query = sql_query + " where UserID = " + input1;
+				}
+			}
+			if(!query2.equals("N/A") ){
+				q2 = true;
+				
+				if(q1 == true){
+					sql_query = sql_query + " and ";
+				}
+				
+				if(query2.equals("DatePlaced")){
+					sql_query = sql_query + " where DatePlaced = " + input2;
+				}
+				else if(query2.equals("OrderID")){
+					sql_query = sql_query + " where OrderID = " + input2;
+				}
+				else if(query2.equals("UserID")){
+					sql_query = sql_query + " where UserID = " + input2;
+				}
+			}
+			
+			try {
+				ResultSet rs  = statement_.executeQuery(sql_query);
+				Vector<String> result_users = new Vector<String>();
+				while (rs.next()) {
+					 String temp_record = rs.getInt("ORDERID") + "##" + rs.getString("USERID") +
+							 "##" + rs.getString("DATEPLACED")+ "##" + rs.getString("PICKUPDATE")+"##" +  rs.getString("PRRODUCTID")
+					 + "##" + rs.getString("QUANTITY");
+					
+					result_users.add(temp_record);
+				}
+				return result_users;
+			} catch (SQLException sqlex) {
+				sqlex.printStackTrace();
+			}
+			return null;
+		}
 
 		//1) customer order products
 		//2) customer view past orders
