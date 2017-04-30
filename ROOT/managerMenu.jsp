@@ -4,7 +4,7 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>JSP Page</title>
+    <title>Menu</title>
   </head>
   <body>
     <br/><br/><br/><br/><br/>
@@ -23,8 +23,7 @@
       <a href="managerQueryPastSupplyOrders.jsp">Query Past Supply Orders</a><br/><br/>
       <a href="managerPlaceSupplyOrder.jsp">Place New Supply Orders</a><br/><br/>
       <a href="managerUpdateStockInfo.jsp">Update Stock Information</a><br/><br/> <!-- Add/Delete Products, Update Quantity, etc. -->
-      <a href="managerAddUser.jsp">Add User</a><br/><br/>
-      <a href="managerDeleteUser.jsp">Delete User</a><br/><br/>
+			<a href="managerUserSettings.jsp">User Settings</a><br/><br/>
 
 
       <br/>

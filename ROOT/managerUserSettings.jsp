@@ -4,7 +4,7 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Delete User</title>
+    <title>User Settings</title>
   </head>
   <body>
     <br/><br/><br/><br/><br/>
@@ -16,7 +16,7 @@
         out.println("Hello " + currentUser + " | " + currentType);
         %>
       </h2>
-      <h3>Delete an Existing User Below</h3>
+      <h3>Talbe of Existing Users</h3>
 
       <%
         DatabaseController dbcontroller = new DatabaseController();
@@ -61,9 +61,26 @@
 
 
 
-		<form action="managerDeleteUserServlet.jsp" method="POST">
+		<form action="managerAddUserServlet.jsp" method="POST">
+        <h4>Add User </h4>
 		    <input type="text" name="username" placeholder="Username" required>
-    		<br/><br/>
+        <input type="password" name="password" placeholder="Password" required>
+        <input type="text" name="type" placeholder="Type" required>
+    		<button type="submit">Submit</button>
+		</form>
+
+
+		<form action="managerDeleteUserServlet.jsp" method="POST">
+        <h4>Delete User </h4>
+		    <input type="text" name="username" placeholder="Username" required>
+    		<button type="submit">Submit</button>
+		</form>
+
+
+		<form action="managerUpdateUserServlet.jsp" method="POST">
+        <h4>Update User Type </h4>
+        <input type="text" name="username" placeholder="Username" required>
+		    <input type="text" name="type" placeholder="New Type" required>
     		<button type="submit">Submit</button>
 		</form>
 

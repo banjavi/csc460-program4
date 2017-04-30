@@ -211,7 +211,7 @@ public class DatabaseController {
 		}
 
 		public Vector<String> FindAllUsers() {
-			String sql_query = "SELECT user_id, username,type FROM banjavi.users order by username";
+			String sql_query = "SELECT user_id, username,type FROM banjavi.users order by user_id";
 			try {
 				ResultSet rs  = statement_.executeQuery(sql_query);
 				Vector<String> result_users = new Vector<String>();
@@ -295,6 +295,17 @@ public class DatabaseController {
 			return null;
 		}
 
+    public boolean updateUser (String username, String newType) {
+
+			String sql_query = 	"update banjavi.users set type='"+ newType + "'where username='" + username +"'";
+			try {
+				ResultSet rs  = statement_.executeQuery(sql_query);
+				return true; // should only execute if the user could be inserted
+			} catch (SQLException sqlex) {
+				sqlex.printStackTrace();
+			}
+			return false;
+		}
 		//1) customer order products
 		//2) customer view past orders
 

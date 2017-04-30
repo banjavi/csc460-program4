@@ -22,7 +22,7 @@
 	boolean insertSuccess =  dbcontroller.insertUser(username, password, type); // user type (Manager, Employee, Customer)
 
   if(insertSuccess == true){
-    response.sendRedirect("managerMenu.jsp");
+    response.sendRedirect("managerUserSettings.jsp");
 	}
 	else {
 		response.sendRedirect("error.jsp");
