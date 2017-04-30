@@ -62,7 +62,6 @@
 			content.append("<tr><th><u>Barcode</u>&nbsp;&nbsp;&nbsp;&nbsp;</th>" +
   			"<th><u>Name</u>&nbsp;&nbsp;&nbsp;&nbsp;</th> " +
   			"<th><u>Price</u>&nbsp;&nbsp;&nbsp;&nbsp;</th></tr>");
-
 			for (int i = 0; i < category.size(); i++) {
 				String[] record = category.get(i).split("##");
 				content.append("<tr id=\"tablerow_" + i + "\">");
@@ -82,7 +81,7 @@
 
 
 		<form action="customerPlaceOrderServlet.jsp" method="POST">
-		   
+
     		<button type="submit">Place Order</button>
 		</form>
 
