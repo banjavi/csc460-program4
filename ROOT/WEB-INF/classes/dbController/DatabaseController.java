@@ -97,6 +97,7 @@ public class DatabaseController {
 			Vector<Vector<String>> result_category = new Vector<Vector<String>>();
 			String currentCategory = "";
 			int categoryIndex = -1;
+			rs.next();
 			while (rs.next()) {
 				String category = rs.getString("CATEGORY");
 				if (!currentCategory.equals(category)) { // create new list for that category
@@ -133,7 +134,7 @@ public class DatabaseController {
 			}
 			return "error";
 		}
-	
+	/*
 	public Vector<String> viewPastOrders(int userID) {
 			String sql_query = "SELECT * FROM banjavi.orders WHERE user_id= '" + userID + "'";
 			try {
@@ -146,7 +147,7 @@ public class DatabaseController {
 							rs.getInt("QUANTITY");
 					result_orders.add(temp_record);
 				}
-				return result_orders;
+				return result_orders
 			} catch (SQLException sqlex) {
 				sqlex.printStackTrace();
 			}
@@ -164,7 +165,7 @@ public class DatabaseController {
 						rs.getDate("PICK_UP_DATE") + "##" + rs.getInt("PRODUCT_ID") + "##" +							rs.getInt("QUANTITY");
 					result_orders.add(temp_record);
 			}
-			return result_orders;
+			return result_orders
 			} catch (SQLException sqlex) {
 				sqlex.printStackTrace();
 			}
@@ -183,13 +184,13 @@ public class DatabaseController {
 						rs.getInt("QUANTITY");
 				result_order.add(temp_record);
 			}
-			return result_orders;
+			return result_orders
 			} catch (SQLException sqlex) {
 				sqlex.printStackTrace();
 			}
 		return null;
 	}	
-
+*/
 	public boolean insertUser (String username, String password, String type) {
 
 
@@ -202,11 +203,11 @@ public class DatabaseController {
 			}
 			return false;
 		}
-	
+/*	
 	public void checkout(int orderID) {
 			Date pick_up = new Date();
 			pick_up.setHours(0);
-			String sql_query = "UPDATE banjavi.orders SET pick_up_date= '" + pick_up + "' WHERE order_id= '" + orderID + "'";
+			String sql_query = "UPDATE banjavi.orders SET pick_up_date= '" + pick_up "' WHERE order_id= '" + orderID + "'";
 			statement_.execute(sql_query);
 		}
 
@@ -228,7 +229,7 @@ public class DatabaseController {
 			return null;
 		}
 
-
+*/
 		public boolean deleteUser (String username) {
 
 			String sql_query = 	"delete banjavi.users where username=" + "'" + username +"'";
