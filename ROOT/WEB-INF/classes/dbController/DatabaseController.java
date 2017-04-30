@@ -88,7 +88,7 @@ public class DatabaseController {
 	    }
 	    }
 
-	
+
 		//groups by category
 	  public Vector<Vector<String>> FindAllProducts() {
 	    String sql_query = "SELECT * FROM banjavi.products order by category, name";
@@ -133,7 +133,7 @@ public class DatabaseController {
 			}
 			return "error";
 		}
-	
+
 // 	public Vector<String> viewPastOrders(int userID) {
 // 			String sql_query = "SELECT * FROM banjavi.orders WHERE user_id= '" + userID + "'";
 // 			try {
@@ -152,7 +152,7 @@ public class DatabaseController {
 // 			}
 // 		return null;
 // 	}
-	
+
 // 	public Vector<String> viewAllPastOrders() {
 // 		String sql_query = "SELECT * FROM banjavi.orders ORDER BY order_id";
 // 		try {
@@ -170,7 +170,7 @@ public class DatabaseController {
 // 			}
 // 		return null;
 // 	}
-	
+
 // // 	public Vector<String> viewUnprocessedOrders() {
 // // 		String sql_query = "SELECT * FROM banjavi.orders WHERE pick_up_date= NULL";
 // // 		try{
@@ -188,21 +188,10 @@ public class DatabaseController {
 // // 				sqlex.printStackTrace();
 // // 			}
 // // 		return null;
-// // 	}	
-
-	public boolean insertUser (String username, String password, String type) {
+// // 	}
 
 
-			String sql_query = 	"insert into banjavi.users values(0,'" + username +"','" + password + "','" + type + "')";
-			try {
-				ResultSet rs  = statement_.executeQuery(sql_query);
-				return true; // should only execute if the user could be inserted
-			} catch (SQLException sqlex) {
-				sqlex.printStackTrace();
-			}
-			return false;
-		}
-	
+
 // 	public void checkout(int orderID) {
 // 			Date pick_up = new Date();
 // 			pick_up.setHours(0);
@@ -228,10 +217,35 @@ public class DatabaseController {
 			return null;
 		}
 
+    public boolean insertUser (String username, String password, String type) {
+
+
+        String sql_query = 	"insert into banjavi.users values(0,'" + username +"','" + password + "','" + type + "')";
+        try {
+          ResultSet rs  = statement_.executeQuery(sql_query);
+          return true; // should only execute if the user could be inserted
+        } catch (SQLException sqlex) {
+          sqlex.printStackTrace();
+        }
+        return false;
+      }
+
 
 		public boolean deleteUser (String username) {
 
 			String sql_query = 	"delete banjavi.users where username=" + "'" + username +"'";
+			try {
+				ResultSet rs  = statement_.executeQuery(sql_query);
+				return true; // should only execute if the user could be inserted
+			} catch (SQLException sqlex) {
+				sqlex.printStackTrace();
+			}
+			return false;
+		}
+
+    public boolean updateUser (String username, String newType) {
+
+			String sql_query = 	"update banjavi.users set type='"+ newType + "'where username='" + username +"'";
 			try {
 				ResultSet rs  = statement_.executeQuery(sql_query);
 				return true; // should only execute if the user could be inserted
@@ -246,7 +260,7 @@ public class DatabaseController {
 // 			Boolean q1 = false;
 // 			Boolean q2 = false;
 // 			String sql_query = "select * from banjavi.orders";
-		
+
 // 			if(!query1.equals("N/A") ){
 // 				q1 = true;
 // 				if(query1.equals("DatePlaced")){
@@ -261,11 +275,11 @@ public class DatabaseController {
 // 			}
 // 			if(!query2.equals("N/A") ){
 // 				q2 = true;
-				
+
 // 				if(q1 == true){
 // 					sql_query = sql_query + " and ";
 // 				}
-				
+
 // 				if(query2.equals("DatePlaced")){
 // 					sql_query = sql_query + " where DatePlaced = " + input2;
 // 				}
@@ -276,7 +290,7 @@ public class DatabaseController {
 // 					sql_query = sql_query + " where UserID = " + input2;
 // 				}
 // 			}
-			
+
 // 			try {
 // 				ResultSet rs  = statement_.executeQuery(sql_query);
 // 				Vector<String> result_users = new Vector<String>();
@@ -285,7 +299,7 @@ public class DatabaseController {
 // 							"##" + rs.getInt("USER_ID") + "##" + rs.getDate("DATE_PLACED") + "##" +
 // 							rs.getDate("PICK_UP_DATE") + "##" + rs.getInt("PRODUCT_ID") + "##" +
 // 							rs.getInt("QUANTITY");
-					
+
 // 					result_users.add(temp_record);
 // 				}
 // 				return result_users;
@@ -294,7 +308,7 @@ public class DatabaseController {
 // 			}
 // 			return null;
 // 		}
-	
+
 // 	 public Boolean UpdateProductsManager(String productID, int qty) {
 // 		    String sql_query = "UPDATE banjavi.products SET stock = " + qty +" WHERE name = " + productID;
 // 		    try {
@@ -304,51 +318,10 @@ public class DatabaseController {
 // 				sqlex.printStackTrace();
 // 			}
 // 			return false;
-		  
+
 // 		  }
 
-    public boolean updateUser (String username, String newType) {
 
-			String sql_query = 	"update banjavi.users set type='"+ newType + "'where username='" + username +"'";
-			try {
-				ResultSet rs  = statement_.executeQuery(sql_query);
-				return true; // should only execute if the user could be inserted
-			} catch (SQLException sqlex) {
-				sqlex.printStackTrace();
-			}
-			return false;
-		}
-		//1) customer order products
-		//2) customer view past orders
-
-
-//		Scanner reader = new Scanner(System.in);
-//		int userSelection = 0;
-//		try {
-//			userSelection = reader.nextInt();
-//		} catch (InputMismatchException exception) {
-//			System.out.println("Invalid selection option");
-//			System.exit(-1);
-//		}
-//
-//		// Connection to Send the query to the DBMS
-//	//	Statement stmt = databaseConnect.createStatement();
-//
-//		if (userSelection == 1) {
-//			//Customer adds a new order
-//			ResultSet productsToAdd = null; //all products to add
-//
-//			int randomNum = 1234;
-//			int orderId = 3454326;
-//			int userId = 67876;
-//			Date date = productsToAdd.getDate(0);
-//			int productID = 34526;
-//			int qty = 3;
-//
-//			//while(there exists a next product){
-//			stmt.executeQuery("insert into orders values (" + randomNum + ", " + orderId +", " + userId +", "+ date +", "
-//					+ null +", "+ productID + ", " + qty + ")");
-//
 
 
 
