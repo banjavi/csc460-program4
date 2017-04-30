@@ -1,8 +1,10 @@
-<%@page contentType="text/html" pageEncoding="UTF-8" errorPage="error.jsp"%>
+<!DOCTYPE html>
+<%@page import="java.util.*, java.lang.StringBuffer,
+	dbController.DatabaseController" errorPage="error.jsp" %>
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>JSP Page</title>
+    <title>Add User</title>
   </head>
   <body>
     <br/><br/><br/><br/><br/>
@@ -23,7 +25,7 @@
     		<input type="password" name="password" placeholder="Password" required>
     		<br/>
         <input type="text" name="type" placeholder="Type" required>
-          <br/>
+          <br/><br/>
     		<button type="submit">Submit</button>
 		</form>
 

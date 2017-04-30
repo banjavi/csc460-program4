@@ -1,4 +1,6 @@
-<%@page contentType="text/html" pageEncoding="UTF-8" errorPage="error.jsp"%>
+<!DOCTYPE html>
+<%@page import="java.util.*, java.lang.StringBuffer,
+	dbController.DatabaseController" errorPage="error.jsp" %>
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <%@page import="java.util.*, java.lang.StringBuffer,
-	dbController.DatabaseController" %>
+	dbController.DatabaseController" errorPage="error.jsp" %>
 <html>
 <head>
 	<title> Login JSP </title>

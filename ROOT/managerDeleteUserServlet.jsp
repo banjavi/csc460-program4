@@ -13,15 +13,14 @@
  	response.setContentType("text/html;charset=utf-8");
 
 	String username = request.getParameter("username");
-	String password = request.getParameter("password");
-  String type = request.getParameter("type");
+
 
 	DatabaseController dbcontroller = new DatabaseController();
 	dbcontroller.Open();
 
-	boolean insertSuccess =  dbcontroller.insertUser(username, password, type); // user type (Manager, Employee, Customer)
+	boolean deleteSuccess =  dbcontroller.deleteUser(username); // user type (Manager, Employee, Customer)
 
-  if(insertSuccess == true){
+  if(deleteSuccess == true){
     response.sendRedirect("managerMenu.jsp");
 	}
 	else {

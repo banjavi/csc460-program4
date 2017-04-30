@@ -98,7 +98,7 @@ public class DatabaseController {
 	      while (rs.next()) {
 	         String temp_record = rs.getInt("PRODUCT_ID") + "##" + rs.getString("NAME") +
 	             "##" + rs.getInt("STOCK") + "##" +rs.getDouble("PRICE") + "##" + rs.getString("CATEGORY");
-					System.out.println(temp_record);
+					//System.out.println(temp_record);
 	        result_employees.add(temp_record);
 	      }
 	      return result_employees;
@@ -139,7 +139,36 @@ public class DatabaseController {
 			return false;
 		}
 
+		public Vector<String> FindAllUsers() {
+			String sql_query = "SELECT user_id, username,type FROM banjavi.users order by username";
+			try {
+				ResultSet rs  = statement_.executeQuery(sql_query);
+				Vector<String> result_users = new Vector<String>();
+				while (rs.next()) {
+					 String temp_record = rs.getInt("USER_ID") + "##" + rs.getString("USERNAME") +
+							 "##" + rs.getString("TYPE");
+					//System.out.println(temp_record);
+					result_users.add(temp_record);
+				}
+				return result_users;
+			} catch (SQLException sqlex) {
+				sqlex.printStackTrace();
+			}
+			return null;
+		}
 
+
+		public boolean deleteUser (String username) {
+
+			String sql_query = 	"delete banjavi.users where username=" + "'" + username +"'";
+			try {
+				ResultSet rs  = statement_.executeQuery(sql_query);
+				return true; // should only execute if the user could be inserted
+			} catch (SQLException sqlex) {
+				sqlex.printStackTrace();
+			}
+			return false;
+		}
 
 
 		//1) customer order products
