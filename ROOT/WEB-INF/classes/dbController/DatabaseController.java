@@ -146,7 +146,7 @@ public class DatabaseController {
 							rs.getInt("QUANTITY");
 					result_orders.add(temp_record);
 				}
-				return result_orders
+				return result_orders;
 			} catch (SQLException sqlex) {
 				sqlex.printStackTrace();
 			}
@@ -164,7 +164,7 @@ public class DatabaseController {
 						rs.getDate("PICK_UP_DATE") + "##" + rs.getInt("PRODUCT_ID") + "##" +							rs.getInt("QUANTITY");
 					result_orders.add(temp_record);
 			}
-			return result_orders
+			return result_orders;
 			} catch (SQLException sqlex) {
 				sqlex.printStackTrace();
 			}
@@ -183,7 +183,7 @@ public class DatabaseController {
 						rs.getInt("QUANTITY");
 				result_order.add(temp_record);
 			}
-			return result_orders
+			return result_orders;
 			} catch (SQLException sqlex) {
 				sqlex.printStackTrace();
 			}
@@ -206,7 +206,7 @@ public class DatabaseController {
 	public void checkout(int orderID) {
 			Date pick_up = new Date();
 			pick_up.setHours(0);
-			String sql_query = "UPDATE banjavi.orders SET pick_up_date= '" + pick_up "' WHERE order_id= '" + orderID + "'";
+			String sql_query = "UPDATE banjavi.orders SET pick_up_date= '" + pick_up + "' WHERE order_id= '" + orderID + "'";
 			statement_.execute(sql_query);
 		}
 

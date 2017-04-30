@@ -28,12 +28,12 @@
     		StringBuffer content = new StringBuffer();;
     		content.append("<table>");
 
-    		// asking dbcontroller to list the employee table
-    		Vector<String> vecResult = dbcontroller.FindAllUsers();
+    		// asking dbcontroller to list the products table
+    		Vector<Vector<String>> vecResult = dbcontroller.FindAllProducts();
     		if (vecResult == null) {
                content.append("Query result is null!");
           }
-
+		/*
   		content.append("<tr><th><u>ID</u>&nbsp;&nbsp;&nbsp;&nbsp;</th>" +
   		"<th><u>Username</u>&nbsp;&nbsp;&nbsp;&nbsp;</th> " +
   		"<th><u>Type</u>&nbsp;&nbsp;&nbsp;&nbsp;</th></tr>");
@@ -54,6 +54,26 @@
         			content.append("</tr>");
       		}
     		}
+		*/
+		for (Vector<String> category: vecResult) {
+			String[] firstRecord = category.get(0).split("##");
+			String categoryName = firstRecord[firstRecord.length-1];
+			content.append("<tr><th><u><h2>" + categoryName + "</h2></u></th></tr>");
+			content.append("<tr><th><u>Barcode</u>&nbsp;&nbsp;&nbsp;&nbsp;</th>" +
+  			"<th><u>Name</u>&nbsp;&nbsp;&nbsp;&nbsp;</th> " +
+  			"<th><u>Price</u>&nbsp;&nbsp;&nbsp;&nbsp;</th></tr>");
+
+			for (int i = 0; i < category.size(); i++) {
+				String[] record = category.get(i).split("##");
+				content.append("<tr id=\"tablerow_" + i + "\">");
+				content.append("<td>" + record[0] + "</td>");
+				content.append("<td>" + record[1] + "</td>");
+				content.append("<td>" + record[3] + "</td>");
+				content.append("<td><input type=\"number\" id=" + record[0] +" " + record[3] + "</td>");
+				content.append("</tr>");
+			}
+		}
+
     		out.write(content.toString());
   		out.write("</table><hr/>");
       dbcontroller.Close();
@@ -61,16 +81,15 @@
 
 
 
-		<form action="managerDeleteUserServlet.jsp" method="POST">
-		    <input type="text" name="username" placeholder="Username" required>
-    		<br/><br/>
-    		<button type="submit">Submit</button>
+		<form action="customerPlaceOrderServlet.jsp" method="POST">
+		   
+    		<button type="submit">Place Order</button>
 		</form>
 
       <br/>
       <br/>
       <br/><br/><br/><br/><br/>
-    <a href="managerMenu.jsp">Back</a>
+    <a href="customerMenu.jsp">Back</a>
     </center>
   </body>
 </html>
