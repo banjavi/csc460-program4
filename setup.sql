@@ -123,7 +123,7 @@ create trigger trg_purchase_id
 insert into banjavi.orders values(0, 1, 1, TO_DATE('2017/05/03 21:02:44', 'yyyy/mm/dd hh24:mi:ss'), TO_DATE('2017/05/03 21:02:44', 'yyyy/mm/dd hh24:mi:ss'), 18, 8);
 insert into banjavi.orders values(0, 1, 1, TO_DATE('2017/05/03 21:02:44', 'yyyy/mm/dd hh24:mi:ss'), TO_DATE('2017/05/03 21:02:44', 'yyyy/mm/dd hh24:mi:ss'), 11, 4);
 insert into banjavi.orders values(0, 1, 1, TO_DATE('2017/05/03 21:02:44', 'yyyy/mm/dd hh24:mi:ss'), TO_DATE('2017/05/03 21:02:44', 'yyyy/mm/dd hh24:mi:ss'), 1, 20);
-insert into banjavi.orders values(0, 2, 5, TO_DATE('2017/04/02 22:03:24', 'yyyy/mm/dd hh24:mi:ss'), TO_DATE('2017/04/02 22:03:24', 'yyyy/mm/dd hh24:mi:ss'), 16, 1);
-insert into banjavi.orders values(0, 2, 5, TO_DATE('2017/04/02 22:03:24', 'yyyy/mm/dd hh24:mi:ss'), TO_DATE('2017/04/02 22:03:24', 'yyyy/mm/dd hh24:mi:ss'), 5, 4);
-insert into banjavi.orders values(0, 3, 6, TO_DATE('2017/01/10 11:22:22', 'yyyy/mm/dd hh24:mi:ss'), TO_DATE('2017/01/10 11:22:22', 'yyyy/mm/dd hh24:mi:ss'), 7, 2);
+insert into banjavi.orders values(0, 2, 5, TO_DATE('2017/04/02 22:03:24', 'yyyy/mm/dd hh24:mi:ss'), TO_DATE('2017/04/04 22:03:24', 'yyyy/mm/dd hh24:mi:ss'), 16, 1);
+insert into banjavi.orders values(0, 2, 5, TO_DATE('2017/04/02 22:03:24', 'yyyy/mm/dd hh24:mi:ss'), null, 5, 4);
+insert into banjavi.orders values(0, 3, 6, TO_DATE('2017/01/10 11:22:22', 'yyyy/mm/dd hh24:mi:ss'), null, 7, 2);
 grant select on banjavi.orders to public;
