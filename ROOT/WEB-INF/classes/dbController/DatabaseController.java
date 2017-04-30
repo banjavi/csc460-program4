@@ -96,8 +96,9 @@ public class DatabaseController {
 	      ResultSet rs  = statement_.executeQuery(sql_query);
 	      Vector<String> result_employees = new Vector<String>();
 	      while (rs.next()) {
-	         String temp_record = rs.getString("PRODUCT_ID") + "##" + rs.getString("NAME") +
-	             "##" + rs.getDouble("STOCK") + "##" +rs.getDouble("PRICE") + "##" + rs.getInt("CATEGORY");
+	         String temp_record = rs.getInt("PRODUCT_ID") + "##" + rs.getString("NAME") +
+	             "##" + rs.getInt("STOCK") + "##" +rs.getDouble("PRICE") + "##" + rs.getString("CATEGORY");
+					System.out.println(temp_record);
 	        result_employees.add(temp_record);
 	      }
 	      return result_employees;

@@ -5,6 +5,9 @@
        <title>JSP Page</title>
   </head>
   <body>
-    <h1>Error 404: Please go through the 4-step process once more.</h1> 
+    <h1>Error 404: Please go through the 4-step process once more.</h1>
+
+    <a href="login.jsp">Return to Login Page</a>
+
   </body>
 </html>

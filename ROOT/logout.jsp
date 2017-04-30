@@ -9,7 +9,8 @@
       session.removeAttribute("username");
       session.removeAttribute("type");
       session.invalidate();
+      response.sendRedirect("login.jsp"); // send user back to the login page
       %>
-      <h1>Successful logout.</h1>
+      <!-- <h1>Successful logout.</h1> -->
     </body>
 </html>

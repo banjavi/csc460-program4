@@ -26,7 +26,12 @@
 		String resultType= resultArray[1];
 		session.setAttribute("username", resultUser);
 		session.setAttribute("type", resultType);
-		response.sendRedirect("menu.jsp");
+		if(resultType.compareTo("Manager") == 0)
+			response.sendRedirect("managerMenu.jsp");
+			if(resultType.compareTo("Employee") == 0)
+			response.sendRedirect("employeeMenu.jsp");
+			if(resultType.compareTo("Customer") == 0)
+			response.sendRedirect("customerMenu.jsp");
 	}
 
 	else {
