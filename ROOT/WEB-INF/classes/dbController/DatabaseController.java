@@ -125,8 +125,64 @@ public class DatabaseController {
 			}
 			return "error";
 		}
+	
+	public Vector<String> viewPastOrders(int userID) {
+			String sql_query = "SELECT * FROM banjavi.orders WHERE user_id= '" + userID + "'";
+			try {
+				ResultSet rs = statement_.executeQuery(sql_query);
+				Vector<String> result_orders = new Vector<String>();
+				while(rs.next()) {
+					String temp_record = rs.getInt("PURCHASE_ID") + "##" + rs.getInt("ORDER_ID") +
+							"##" + rs.getInt("USER_ID") + "##" + rs.getDate("DATE_PLACED") + "##" +
+							rs.getDate("PICK_UP_DATE") + "##" + rs.getInt("PRODUCT_ID") + "##" +
+							rs.getInt("QUANTITY");
+					result_order.add(temp_record);
+				}
+				return result_orders
+			} catch (SQLException sqlex) {
+				sqlex.printStackTrace();
+			}
+		return null;
+	}
+	
+	public Vector<String> viewAllPastOrders() {
+		String sql_query = "SELECT * FROM banjavi.orders ORDER BY order_id";
+		try {
+			ResultSet rs = statement_.executeQuery(sql_query);
+			Vector<String> result_orders = new Vector<String>();
+			while(rs.next()) {
+				String temp_record = rs.getInt("PURCHASE_ID") + "##" + rs.getInt("ORDER_ID") +
+						"##" + rs.getInt("USER_ID") + "##" + rs.getDate("DATE_PLACED") + "##" +
+						rs.getDate("PICK_UP_DATE") + "##" + rs.getInt("PRODUCT_ID") + "##" +							rs.getInt("QUANTITY");
+					result_order.add(temp_record);
+			}
+			return result_orders
+			} catch (SQLException sqlex) {
+				sqlex.printStackTrace();
+			}
+		return null;
+	}
+	
+	public Vector<String> viewUnprocessedOrders() {
+		String sql_query = "SELECT * FROM banjavi.orders WHERE pick_up_date= NULL";
+		try{
+			ResultSet rs = statement_.executeQuery(sql_query);
+			Vector<String> result_orders = new Vector<String>();
+			while(rs.next()) {
+				String temp_record = rs.getInt("PURCHASE_ID") + "##" + rs.getInt("ORDER_ID") +
+						"##" + rs.getInt("USER_ID") + "##" + rs.getDate("DATE_PLACED") + "##" +
+						rs.getDate("PICK_UP_DATE") + "##" + rs.getInt("PRODUCT_ID") + "##" +
+						rs.getInt("QUANTITY");
+				result_order.add(temp_record);
+			}
+			return result_orders
+			} catch (SQLException sqlex) {
+				sqlex.printStackTrace();
+			}
+		return null;
+	}	
 
-		public boolean insertUser (String username, String password, String type) {
+	public boolean insertUser (String username, String password, String type) {
 
 
 			String sql_query = 	"insert into banjavi.users values(0,'" + username +"','" + password + "','" + type + "')";
@@ -137,6 +193,13 @@ public class DatabaseController {
 				sqlex.printStackTrace();
 			}
 			return false;
+		}
+	
+	public void checkout(int orderID) {
+			Date pick_up = new Date();
+			pick_up.setHours(0);
+			String sql_query = "UPDATE banjavi.orders SET pick_up_date= '" + pick_up "' WHERE order_id= '" + orderID + "'";
+			statement_.execute(sql_query);
 		}
 
 		public Vector<String> FindAllUsers() {
