@@ -245,7 +245,7 @@ public class DatabaseController {
 		//allows for two query options limited to show a certain date, user, or order;
 			Boolean q1 = false;
 			Boolean q2 = false;
-			String sql_query = "select * from orders";
+			String sql_query = "select * from banjavi.orders";
 		
 			if(!query1.equals("N/A") ){
 				q1 = true;
