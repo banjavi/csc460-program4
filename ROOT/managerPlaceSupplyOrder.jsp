@@ -44,7 +44,7 @@
       		for (int i = 0; i < vecResult.size(); i++) {
         			String row = vecResult.get(i);
        		 	String[] detail = row.split("##");
-
+            detail[0] = detail[0].appe
        	 		content.append(
             			"<tr id=\"tablerow_" + i + "\">");
         			content.append(
