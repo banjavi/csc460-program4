@@ -126,6 +126,19 @@ public class DatabaseController {
 			return "error";
 		}
 
+		public boolean insertUser (String username, String password, String type) {
+
+
+			String sql_query = 	"insert into banjavi.users values(0,'" + username +"','" + password + "','" + type + "')";
+			try {
+				ResultSet rs  = statement_.executeQuery(sql_query);
+				return true; // should only execute if the user could be inserted
+			} catch (SQLException sqlex) {
+				sqlex.printStackTrace();
+			}
+			return false;
+		}
+
 
 
 

@@ -20,7 +20,7 @@
 
 	String loginResult =  dbcontroller.authenticate(username, password); // user type (Manager, Employee, Customer)
 
-	if(loginResult!="error"){
+	if(loginResult.compareTo("error") != 0){
 		String[] resultArray = loginResult.split(",");
 		String resultUser= resultArray[0];
 		String resultType= resultArray[1];
@@ -28,9 +28,9 @@
 		session.setAttribute("type", resultType);
 		if(resultType.compareTo("Manager") == 0)
 			response.sendRedirect("managerMenu.jsp");
-			if(resultType.compareTo("Employee") == 0)
+		if(resultType.compareTo("Employee") == 0)
 			response.sendRedirect("employeeMenu.jsp");
-			if(resultType.compareTo("Customer") == 0)
+		if(resultType.compareTo("Customer") == 0)
 			response.sendRedirect("customerMenu.jsp");
 	}
 
