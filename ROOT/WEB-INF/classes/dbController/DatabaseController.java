@@ -294,6 +294,18 @@ public class DatabaseController {
 			}
 			return null;
 		}
+	
+	 public Boolean UpdateProductsManager(String productID, int qty) {
+		    String sql_query = "UPDATE banjavi.products SET stock = " + qty +" WHERE name = " + productID;
+		    try {
+				ResultSet rs  = statement_.executeQuery(sql_query);
+				return true; // should only execute if the user could be inserted
+			} catch (SQLException sqlex) {
+				sqlex.printStackTrace();
+			}
+			return false;
+		  
+		  }
 
     public boolean updateUser (String username, String newType) {
 
