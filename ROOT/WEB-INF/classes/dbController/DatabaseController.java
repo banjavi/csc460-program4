@@ -88,20 +88,28 @@ public class DatabaseController {
 	    }
 	    }
 
-
-		//example method
-	  public Vector<String> FindAllProducts() {
-	    String sql_query = "SELECT * FROM banjavi.products order by name";
+	
+		//groups by category
+	  public Vector<Vector<String>> FindAllProducts() {
+	    String sql_query = "SELECT * FROM banjavi.products order by category, name";
 	    try {
-	      ResultSet rs  = statement_.executeQuery(sql_query);
-	      Vector<String> result_employees = new Vector<String>();
-	      while (rs.next()) {
-	         String temp_record = rs.getInt("PRODUCT_ID") + "##" + rs.getString("NAME") +
-	             "##" + rs.getInt("STOCK") + "##" +rs.getDouble("PRICE") + "##" + rs.getString("CATEGORY");
-					//System.out.println(temp_record);
-	        result_employees.add(temp_record);
-	      }
-	      return result_employees;
+			ResultSet rs  = statement_.executeQuery(sql_query);
+			Vector<Vector<String>> result_category = new Vector<Vector<String>>();
+			String currentCategory = "";
+			int categoryIndex = -1;
+			while (rs.next()) {
+				String category = rs.getString("CATEGORY");
+				if (!currentCategory.equals(category)) { // create new list for that category
+					categoryIndex++;
+					currentCategory = category;
+					result_category.add(categoryIndex, new Vector<String>());
+			 	}
+	     	String temp_record = rs.getInt("PRODUCT_ID") + "##" + rs.getString("NAME") +
+         	"##" + rs.getInt("STOCK") + "##" +rs.getDouble("PRICE") + "##" + category;
+			//System.out.println(temp_record);
+	        result_category.get(categoryIndex).add(temp_record);
+	      	}
+	      	return result_category;
 	    } catch (SQLException sqlex) {
 	      sqlex.printStackTrace();
 	    }

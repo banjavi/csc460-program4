@@ -16,6 +16,10 @@
         out.println("Hello " + currentUser + " | " + currentType);
         %>
       </h2>
+		<a href="customerPlaceOrder.jsp">Place Order</a><br/><br/>
+		<a href="customerViewOrders.jsp">View Past Orders</a><br/><br/>
+
+
       <br/>
       <br/>
       <br/><br/><br/><br/><br/>
