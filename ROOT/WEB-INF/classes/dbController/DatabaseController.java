@@ -154,7 +154,7 @@ public class DatabaseController {
 				String temp_record = rs.getInt("PURCHASE_ID") + "##" + rs.getInt("ORDER_ID") +
 						"##" + rs.getInt("USER_ID") + "##" + rs.getDate("DATE_PLACED") + "##" +
 						rs.getDate("PICK_UP_DATE") + "##" + rs.getInt("PRODUCT_ID") + "##" +							rs.getInt("QUANTITY");
-					result_order.add(temp_record);
+					result_orders.add(temp_record);
 			}
 			return result_orders
 			} catch (SQLException sqlex) {
