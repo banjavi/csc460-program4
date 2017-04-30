@@ -281,9 +281,10 @@ public class DatabaseController {
 				ResultSet rs  = statement_.executeQuery(sql_query);
 				Vector<String> result_users = new Vector<String>();
 				while (rs.next()) {
-					 String temp_record = rs.getInt("ORDERID") + "##" + rs.getString("USERID") +
-							 "##" + rs.getString("DATEPLACED")+ "##" + rs.getString("PICKUPDATE")+"##" +  rs.getString("PRRODUCTID")
-					 + "##" + rs.getString("QUANTITY");
+					String temp_record = rs.getInt("PURCHASE_ID") + "##" + rs.getInt("ORDER_ID") +
+							"##" + rs.getInt("USER_ID") + "##" + rs.getDate("DATE_PLACED") + "##" +
+							rs.getDate("PICK_UP_DATE") + "##" + rs.getInt("PRODUCT_ID") + "##" +
+							rs.getInt("QUANTITY");
 					
 					result_users.add(temp_record);
 				}
