@@ -393,4 +393,22 @@ public void orderProducts(int userID, int productID, int quantity) {
 					statement_.executeQuery(sql_query);
 			
 		}
+	public static void UpdateStock(int productID, int qty) {
+		 String query = "select stock from products where product_id = "+ productID;
+		 try{
+		 ResultSet rs  = statement_.executeQuery(query);
+		 while(rs.next()){
+				qty = rs.getInt(1) + qty;
+			}
+		 
+		   String sql_query = "UPDATE banjavi.products SET stock = " + qty +" WHERE product_id = " + productID;
+		   
+			rs  = statement_.executeQuery(sql_query);
+				 // should only execute if the user could be inserted
+		 } catch (SQLException sqlex) {
+				sqlex.printStackTrace();
+			}
+			
+		  
+		  }
 }
