@@ -377,7 +377,7 @@ public void orderProducts(int userID, int productID, int quantity) {
 					UpdateStock(productID, quantity);
 				}
 			
-				sql_query = "SELECT product_id FROM banjavi.products WHERE name= '" + productName.get(i) + "'";
+				sql_query = "SELECT product_id FROM banjavi.products WHERE name= '" + productID + "'";
 				
 				rs  = statement_.executeQuery(sql_query);
 				while(rs.next()) {
