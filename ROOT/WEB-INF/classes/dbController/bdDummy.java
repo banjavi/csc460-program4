@@ -300,17 +300,7 @@ public class dbDummy {
 			return null;
 		}
 	
-	 public Boolean UpdateProductsManager(String productID, int qty) {
-		    String sql_query = "UPDATE banjavi.products SET stock = " + qty +" WHERE name = " + productID;
-		    try {
-				ResultSet rs  = statement_.executeQuery(sql_query);
-				return true; // should only execute if the user could be inserted
-			} catch (SQLException sqlex) {
-				sqlex.printStackTrace();
-			}
-			return false;
-		  
-		  }
+*/
     public boolean updateUser (String username, String newType) {
 			String sql_query = 	"update banjavi.users set type='"+ newType + "'where username='" + username +"'";
 			try {
@@ -321,36 +311,8 @@ public class dbDummy {
 			}
 			return false;
 		}
-		//1) customer order products
-		//2) customer view past orders
-*/
-//		Scanner reader = new Scanner(System.in);
-//		int userSelection = 0;
-//		try {
-//			userSelection = reader.nextInt();
-//		} catch (InputMismatchException exception) {
-//			System.out.println("Invalid selection option");
-//			System.exit(-1);
-//		}
-//
-//		// Connection to Send the query to the DBMS
-//	//	Statement stmt = databaseConnect.createStatement();
-//
-//		if (userSelection == 1) {
-//			//Customer adds a new order
-//			ResultSet productsToAdd = null; //all products to add
-//
-//			int randomNum = 1234;
-//			int orderId = 3454326;
-//			int userId = 67876;
-//			Date date = productsToAdd.getDate(0);
-//			int productID = 34526;
-//			int qty = 3;
-//
-//			//while(there exists a next product){
-//			stmt.executeQuery("insert into orders values (" + randomNum + ", " + orderId +", " + userId +", "+ date +", "
-//					+ null +", "+ productID + ", " + qty + ")");
-//
+	
+
 
 public void orderProducts(int userID, int productID, int quantity) {
 			int oID = 0;
