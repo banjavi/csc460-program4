@@ -4,7 +4,7 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>JSP Page</title>
+    <title>Employee Menu</title>
   </head>
   <body>
     <br/><br/><br/><br/><br/>
@@ -16,6 +16,9 @@
         out.println("Hello " + currentUser + " | " + currentType);
         %>
       </h2>
+
+		<a href="managerCheckOutCustomer.jsp">Perform Customer Check-out</a><br/><br/>
+
       <br/>
       <br/>
       <br/><br/><br/><br/><br/>
