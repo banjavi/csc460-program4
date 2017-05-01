@@ -332,7 +332,8 @@ public void orderProducts(int userID, int productID, int quantity) {
 			java.sql.Date date_placed = new java.sql.Date(today.getTime());
 			
 			String sql_query = "SELECT DISTINCT count(order_id) FROM banjavi.orders";
-			
+			//this creates a new oderID each time when inserting one product at a time
+			//change to take in a orderID parameter or ??
 			try {
 				ResultSet rs  = statement_.executeQuery(sql_query);
 				while(rs.next()) {
