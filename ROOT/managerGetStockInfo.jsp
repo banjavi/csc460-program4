@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <%@page import="java.util.*, java.lang.*, java.lang.StringBuffer,
-	dbController.DatabaseController" %>
+	dbController.DatabaseController" errorPage="error.jsp" %>
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Place Order</title>
+    <title>Stock Info</title>
   </head>
   <body>
     <br/><br/><br/><br/><br/>
@@ -16,7 +16,7 @@
         out.println("Hello " + currentUser + " | " + currentType);
         %>
       </h2>
-      <h3>Place an Order</h3>
+      <h3>Stock Information</h3>
 
       <%
         DatabaseController dbcontroller = new DatabaseController();
@@ -33,44 +33,23 @@
     		if (vecResult == null) {
                content.append("Query result is null!");
           }
-		/*
-  		content.append("<tr><th><u>ID</u>&nbsp;&nbsp;&nbsp;&nbsp;</th>" +
-  		"<th><u>Username</u>&nbsp;&nbsp;&nbsp;&nbsp;</th> " +
-  		"<th><u>Type</u>&nbsp;&nbsp;&nbsp;&nbsp;</th></tr>");
-
-    		if (vecResult != null && vecResult.size() > 0) {
-      		for (int i = 0; i < vecResult.size(); i++) {
-        			String row = vecResult.get(i);
-       		 	String[] detail = row.split("##");
-
-       	 		content.append(
-            			"<tr id=\"tablerow_" + i + "\">");
-        			content.append(
-            			"<td class=\"postlist\">" +
-            			detail[0] + "</td>");
-        			content.append(
-            			"<td>" + detail[1] + "</td>");
-        			content.append("<td>" + detail[2] + "</td>");
-        			content.append("</tr>");
-      		}
-    		}
-		*/
 		for (Vector<String> category: vecResult) {
 			String[] firstRecord = category.get(0).split("##");
 			String categoryName = firstRecord[firstRecord.length-1];
 			content.append("<tr><th><u><h2>" + categoryName + "</h2></u></th></tr>");
 			content.append("<tr><th><u>Barcode</u>&nbsp;&nbsp;&nbsp;&nbsp;</th>" +
   			"<th><u>Name</u>&nbsp;&nbsp;&nbsp;&nbsp;</th> " +
+        "<th><u>Stock</u>&nbsp;&nbsp;&nbsp;&nbsp;</th> " +
   			"<th><u>Price</u>&nbsp;&nbsp;&nbsp;&nbsp;</th></tr>");
 			for (int i = 0; i < category.size(); i++) {
 				String[] record = category.get(i).split("##");
-				int barcodeValue = Integer.parseInt(record[0]);
-				record[0] = "#" + String.format("%06d", barcodeValue);
+        int barcodeValue = Integer.parseInt(record[0]);
+        record[0] = "#" + String.format("%06d", barcodeValue);
 				content.append("<tr id=\"tablerow_" + i + "\">");
 				content.append("<td>" + record[0] + "</td>");
 				content.append("<td>" + record[1] + "</td>");
+        content.append("<td>" + record[2] + "</td>");
 				content.append("<td>" + record[3] + "</td>");
-				content.append("<td><input type=\"number\" id=" + record[0] +" " + record[3] + "</td>");
 				content.append("</tr>");
 			}
 		}
@@ -81,16 +60,10 @@
         %>
 
 
-
-		<form action="customerPlaceOrderServlet.jsp" method="POST">
-
-    		<button type="submit">Place Order</button>
-		</form>
-
       <br/>
       <br/>
       <br/><br/><br/><br/><br/>
-    <a href="customerMenu.jsp">Back</a>
+    <a href="managerMenu.jsp">Back</a>
     </center>
   </body>
 </html>
