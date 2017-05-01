@@ -376,13 +376,6 @@ public void orderProducts(int userID, int productID, int quantity) {
 					pick_up = date_placed;
 					UpdateStock(productID, quantity);
 				}
-			
-				sql_query = "SELECT product_id FROM banjavi.products WHERE name= '" + productID + "'";
-				
-				rs  = statement_.executeQuery(sql_query);
-				while(rs.next()) {
-				pID = rs.getInt(1);
-				}
 				
 				sql_query = "insert into banjavi.orders values(0," + oID + ", " + userID + ", "
 						+ "TO_DATE('" + date_placed + "', 'yyyy-mm-dd'),TO_DATE('" + pick_up + "', 'yyyy-mm-dd'), " +
