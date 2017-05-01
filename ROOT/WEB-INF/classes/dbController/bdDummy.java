@@ -225,7 +225,7 @@ public class dbDummy {
 				sql_query = "UPDATE banjavi.orders SET pick_up_date = TO_DATE('"+ pick_up +"', 'yyyy-mm-dd') where"
 						+ " order_id = "+ orderID;
 				
-				ResultSet new = s.executeQuery(sql_query);
+				ResultSet temp = s.executeQuery(sql_query);
 				
 				sql_query = "SELECT stock from banjavi.products WHERE product_id= " + pID;
 				
@@ -321,7 +321,7 @@ public class dbDummy {
 	
 
 
-public void orderProducts(int userID, int productID, int quantity) {
+public int orderProducts(int userID, int productID, int quantity) {
 			int oID = 0;
 			String type = "";
 			@SuppressWarnings("deprecation")
@@ -367,7 +367,7 @@ public void orderProducts(int userID, int productID, int quantity) {
 				} catch(SQLException sqlex) {
 				sqlex.printStackTrace();
 				}
-			
+		return oID;	
 		}
 	public  void UpdateStock(int productID, int qty) {
 		 String query = "select stock from products where product_id = "+ productID;
