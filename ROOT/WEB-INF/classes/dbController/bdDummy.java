@@ -359,12 +359,16 @@ public void orderProducts(int userID, int productID, int quantity) {
 			
 			String sql_query = "SELECT DISTINCT count(order_id) FROM banjavi.orders";
 			
+			try {
 				ResultSet rs  = statement_.executeQuery(sql_query);
 				while(rs.next()) {
 					oID = rs.getInt(1) + 1;
 				}
+			} catch(SQLException sqlex) {
+				sqlex.printStackTrace();
+			}
 			
-			
+			try {
 			sql_query = "SELECT type FROM banjavi.users WHERE user_id= " + userID;
 			
 				rs  = statement_.executeQuery(sql_query);
@@ -372,6 +376,9 @@ public void orderProducts(int userID, int productID, int quantity) {
 				while(rs.next()) {
 					type = rs.getString(1);
 				}
+				} catch(SQLException sqlex) {
+				sqlex.printStackTrace();
+			}
 				if(type.equals("Manager")) {
 					pick_up = date_placed;
 					UpdateStock(productID, quantity);
@@ -380,8 +387,11 @@ public void orderProducts(int userID, int productID, int quantity) {
 				sql_query = "insert into banjavi.orders values(0," + oID + ", " + userID + ", "
 						+ "TO_DATE('" + date_placed + "', 'yyyy-mm-dd'),TO_DATE('" + pick_up + "', 'yyyy-mm-dd'), " +
 						productID + ", " + quantity + ")";
-				
-					statement_.executeQuery(sql_query);
+				try {
+				statement_.executeQuery(sql_query);
+				} catch(SQLException sqlex) {
+				sqlex.printStackTrace();
+				}
 			
 		}
 	public  void UpdateStock(int productID, int qty) {
