@@ -319,6 +319,25 @@ public class dbDummy {
 			return false;
 		}
 	
+	public Vector<String> ProductsInCategory(String category){
+		//returns a list of all orderIds containing the product
+		String sql_query = "SELECT product_id, name FROM banjavi.products WHERE category = " + category;
+		try {
+			ResultSet rs = statement_.executeQuery(sql_query);
+			Vector<String> result_orders = new Vector<String>();
+			while(rs.next()) {
+				String temp_record = rs.getInt("PRODUCT_ID") + "##"+ rs.getString("NAME");
+				result_orders.add(temp_record);
+			}
+			return result_orders;
+		} catch (SQLException sqlex) {
+			sqlex.printStackTrace();
+		}
+	return null;
+		
+		
+	}
+	
 	public Vector<String> ProductsToOrder(int number){
 		//returns the list of all products with stock less than the inputed number
 		String sql_query = "SELECT * FROM banjavi.products WHERE stock < " + number;
