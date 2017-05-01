@@ -17,7 +17,7 @@
         %>
       </h2>
 
-		<a href="managerCheckOutCustomer.jsp">Perform Customer Check-out</a><br/><br/>
+		<a href="employeeCheckOutCustomer.jsp">Perform Customer Check-out</a><br/><br/>
 
       <br/>
       <br/>

@@ -57,7 +57,7 @@
       <br/>
       <br/>
       <br/><br/><br/><br/><br/>
-    <a href="managerMenu.jsp">Back</a>
+    <a href="employeeMenu.jsp">Back</a>
     </center>
   </body>
 </html>
