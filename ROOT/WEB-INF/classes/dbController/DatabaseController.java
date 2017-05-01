@@ -240,7 +240,7 @@ public class DatabaseController {
 			return false;
 		}
 
-	public Vector<String> GetPastSupplyOrdersManager(String query1,String input1, String query2,String input2){
+/*	public Vector<String> GetPastSupplyOrdersManager(String query1,String input1, String query2,String input2){
 		//allows for two query options limited to show a certain date, user, or order;
 			Boolean q1 = false;
 			Boolean q2 = false;
@@ -320,7 +320,7 @@ public class DatabaseController {
 		//1) customer order products
 		//2) customer view past orders
 
-
+*/
 //		Scanner reader = new Scanner(System.in);
 //		int userSelection = 0;
 //		try {
