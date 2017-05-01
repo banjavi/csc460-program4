@@ -147,11 +147,12 @@ public class DatabaseController {
 			return false;
 		}
 
-		public boolean deleteUser (String username) {
-
-			String sql_query = 	"delete banjavi.users where username=" + "'" + username +"'";
+		public boolean deleteUser (String id) {
+			String sql_query1 = 	"delete from banjavi.orders where user_id=" + id;
+			String sql_query2 = 	"delete from banjavi.users where user_id=" + id;
 			try {
-				ResultSet rs  = statement_.executeQuery(sql_query);
+				ResultSet rs1  = statement_.executeQuery(sql_query1);
+				ResultSet rs2  = statement_.executeQuery(sql_query2);
 				return true; // should only execute if the user could be inserted
 			} catch (SQLException sqlex) {
 				sqlex.printStackTrace();

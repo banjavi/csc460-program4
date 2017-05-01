@@ -79,6 +79,7 @@
 
 		<form action="managerDeleteUserServlet.jsp" method="POST">
         <h4>Delete User </h4>
+				<input type="text" name="id" placeholder="ID" required>
 		    <input type="text" name="username" placeholder="Username" required>
     		<button type="submit">Submit</button>
 		</form>

@@ -29,7 +29,7 @@
     		content.append("<table>");
 
     		// asking dbcontroller to list the products table
-    		Vector<Vector<String>> vecResult = dbcontroller.FindAllProducts();
+    		Vector<Vector<String>> vecResult = dbcontroller.FindAllProducts("All");
     		if (vecResult == null) {
                content.append("Query result is null!");
           }

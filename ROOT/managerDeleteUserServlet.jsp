@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <%@page import="java.util.*, java.lang.StringBuffer,
-	dbController.DatabaseController" errorPage="error.jsp" %>
+	dbController.DatabaseController" %>
 <html>
 <head>
 	<title> Delete User JSP </title>
@@ -12,13 +12,13 @@
 	request.setCharacterEncoding("utf-8");
  	response.setContentType("text/html;charset=utf-8");
 
-	String username = request.getParameter("username");
+	String id = request.getParameter("id");
 
 
 	DatabaseController dbcontroller = new DatabaseController();
 	dbcontroller.Open();
 
-	boolean deleteSuccess =  dbcontroller.deleteUser(username); // user type (Manager, Employee, Customer)
+	boolean deleteSuccess =  dbcontroller.deleteUser(id); // user type (Manager, Employee, Customer)
 
   if(deleteSuccess == true){
     response.sendRedirect("managerUserSettings.jsp");
