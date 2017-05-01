@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <%@page import="java.util.*, java.lang.*, java.lang.StringBuffer,
-	dbController.DatabaseController" errorPage="error.jsp" %>
+	dbController.DatabaseController" %>
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -13,11 +13,16 @@
         <%
         String currentUser = session.getAttribute("username").toString();
         String currentType = session.getAttribute("type").toString();
+				String filterCategory = request.getParameter("filter");
+
         out.println("Hello " + currentUser + " | " + currentType);
         %>
       </h2>
-      <h3>Stock Information</h3>
-
+			<h3><%
+			if(filterCategory == null)
+				filterCategory="All";
+			out.println("Stock Information | " + "Filter By " + filterCategory); %>
+		</h3>
       <%
         DatabaseController dbcontroller = new DatabaseController();
         dbcontroller.Open();
@@ -29,7 +34,7 @@
     		content.append("<table>");
 
     		// asking dbcontroller to list the products table
-    		Vector<Vector<String>> vecResult = dbcontroller.FindAllProducts();
+    		Vector<Vector<String>> vecResult = dbcontroller.FindAllProducts(filterCategory);
     		if (vecResult == null) {
                content.append("Query result is null!");
           }
@@ -52,7 +57,6 @@
 				double temp = Double.parseDouble(record[3]);
 				record[3] = "$" + String.format("%.2f", temp);
 				content.append("<td>" + record[3] + "</td>");
-
 				content.append("</tr>");
 			}
 		}
@@ -62,7 +66,23 @@
       dbcontroller.Close();
         %>
 
+				<br><br>
 
+				<form action="managerGetStockInfo.jsp" method="POST">
+					<h4>Filter By Category </h4>
+					<select name="filter">
+						<option value="All">All</option>
+				  <option value="Beverages">Beverages</option>
+				  <option value="Dairy">Dairy</option>
+					<option value="Frozen">Frozen</option>
+					<option value="Meat">Meat</option>
+					<option value="Medicine">Medicine</option>
+					<option value="Produce">Produce</option>
+				  <option value="Snacks">Snacks</option>
+				</select>
+				<button type="submit">Submit</button>
+
+			</form>
       <br/>
       <br/>
       <br/><br/><br/><br/><br/>

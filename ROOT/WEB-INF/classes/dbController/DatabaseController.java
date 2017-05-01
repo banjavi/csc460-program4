@@ -173,8 +173,15 @@ public class DatabaseController {
 
 
 		//groups by category
-	  public Vector<Vector<String>> FindAllProducts() {
-	    String sql_query = "SELECT * FROM banjavi.products order by category, name";
+	  public Vector<Vector<String>> FindAllProducts(String filterCategory) {
+			String sql_query="";
+			if(filterCategory.compareTo("All") == 0){
+				 sql_query = "SELECT * FROM banjavi.products order by category, name";
+			 }
+			else{
+				 sql_query = "SELECT * FROM banjavi.products WHERE category = '" + filterCategory +"' order by category, name";
+				 //SELECT * FROM banjavi.products WHERE category = 'Beverages' order by category, name;
+			}
 	    try {
 			ResultSet rs  = statement_.executeQuery(sql_query);
 			Vector<Vector<String>> result_category = new Vector<Vector<String>>();
