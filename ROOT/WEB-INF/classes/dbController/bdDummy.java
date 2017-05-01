@@ -217,9 +217,16 @@ public class dbDummy {
 			ResultSet rs = statement_.executeQuery(sql_query);
 			while(rs.next()) {
 				pID = rs.getInt(1);
-				System.out.println(pID);
+				//System.out.println(pID);
 				qty = rs.getInt(2);
-				System.out.println(qty);
+				//System.out.println(qty);
+				java.util.Date today = new java.util.Date();
+				java.sql.Date pick_up = new java.sql.Date(today.getTime());
+				sql_query = "UPDATE banjavi.orders SET pick_up_date = TO_DATE('"+ pick_up +"', 'yyyy-mm-dd') where"
+						+ " order_id = "+ orderID;
+				
+				ResultSet new = s.executeQuery(sql_query);
+				
 				sql_query = "SELECT stock from banjavi.products WHERE product_id= " + pID;
 				
 				ResultSet sto = s.executeQuery(sql_query);
