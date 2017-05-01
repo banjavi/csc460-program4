@@ -418,26 +418,5 @@ public void orderProducts(int userID, int productID, int quantity) {
 		  
 		  }
 	
-	public void checkout(int orderID) {
-	String sql_query = "SELECT product_id, quantity FROM banjavi.orders WHERE order_id= " + orderID;
-	String sql;
-	int pID = 0;
-	int qty = 0;
-	try {
-		ResultSet rs = statement_.executeQuery(sql_query);
-		while(rs.next()) {
-			pID = rs.getInt(1);
-			qty = rs.getInt(2);
-			sql_query = "SELECT stock from banjavi.products WHERE product_id= " + pID;
-			ResultSet sto = statement_.executeQuery(sql_query);
-			while(rs.next()) {
-				qty = sto.getInt(1) - qty;
-			}
-			String s = "UPDATE banjavi.products SET stock= " + qty + " WHERE product_id= " + pID;
-		}
-	} catch (SQLException sqlex) {
-		sqlex.printStackTrace();
-	}
 	
-}
 }
