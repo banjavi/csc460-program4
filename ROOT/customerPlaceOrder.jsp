@@ -49,7 +49,7 @@
 				content.append("<td>" + record[0] + "</td>");
 				content.append("<td>" + record[1] + "</td>");
 				content.append("<td>" + record[3] + "</td>");
-				content.append("<td><input type=\"number\" min=\"1\" max=\"" + record[2] + "\" name=\"" + record[0] +"\" ></td>"); // name is product id
+				content.append("<td><input type=\"number\" min=\"0\" max=\"" + record[2] + "\" name=\"" + record[0] +"\" ></td>"); // name is product id
 				content.append("</tr>");
 			}
 		}
