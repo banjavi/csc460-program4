@@ -90,12 +90,12 @@ public class DatabaseController {
 
 		// there should either be 1 or 0 tuples returned - we need to prevent duplicate users later on
 		public String authenticate (String username, String password) {
-			String sql_query = "SELECT username, type FROM banjavi.users WHERE username= '" + username + "' AND password= '" + password + "'";
+			String sql_query = "SELECT user_id, username, type FROM banjavi.users WHERE username= '" + username + "' AND password= '" + password + "'";
 			try {
 				ResultSet rs  = statement_.executeQuery(sql_query);
 				String result="";
 				if (rs.next())
-					 result = rs.getString("username") + "," + rs.getString("type");
+					 result = rs.getInt("user_id") + "," + rs.getString("username") + "," + rs.getString("type");
 				else
 					result = "error";
 
@@ -104,6 +104,24 @@ public class DatabaseController {
 				sqlex.printStackTrace();
 			}
 			return "error";
+		}
+
+		public Vector<String> FindAllUsers() {
+			String sql_query = "SELECT user_id, username,type FROM banjavi.users order by user_id";
+			try {
+				ResultSet rs  = statement_.executeQuery(sql_query);
+				Vector<String> result_users = new Vector<String>();
+				while (rs.next()) {
+					 String temp_record = rs.getInt("USER_ID") + "##" + rs.getString("USERNAME") +
+							 "##" + rs.getString("TYPE");
+					//System.out.println(temp_record);
+					result_users.add(temp_record);
+				}
+				return result_users;
+			} catch (SQLException sqlex) {
+				sqlex.printStackTrace();
+			}
+			return null;
 		}
 
 	public boolean insertUser (String username, String password, String type) {
@@ -161,7 +179,7 @@ public class DatabaseController {
 					result_category.add(categoryIndex, new Vector<String>());
 			 	}
 	     	String temp_record = rs.getInt("PRODUCT_ID") + "##" + rs.getString("NAME") +
-         	"##" + rs.getInt("STOCK") + "##" +rs.getDouble("PRICE") + "##" + category;
+         	"##" + rs.getInt("STOCK") + "##" +rs.getDouble("PRICE");
 			//System.out.println(temp_record);
 	        result_category.get(categoryIndex).add(temp_record);
 	      	}
@@ -171,6 +189,33 @@ public class DatabaseController {
 	    }
 	    return null;
 	  }
+
+
+		public Vector<String> viewCustomerOrders(String user_id) {
+			String sql_query = "SELECT order_id, date_placed, pick_up_date, name, quantity, price * CAST(quantity AS number(*,2)) AS \"COST\" FROM banjavi.orders, banjavi.products WHERE banjavi.orders.product_id = banjavi.products.product_id AND user_id = " + user_id + " ORDER BY order_id";
+			try {
+			ResultSet rs  = statement_.executeQuery(sql_query);
+			Vector<String> result_orders = new Vector<String>();
+			while (rs.next()) {
+	     	String temp_record = rs.getInt("ORDER_ID") + "##" + rs.getDate("DATE_PLACED") +
+         	"##" + rs.getDate("PICK_UP_DATE") + "##" +rs.getString("NAME") +
+					"##" + rs.getInt("QUANTITY") + "##" + rs.getDouble("COST");
+
+			//System.out.println(temp_record);
+	        result_orders.add(temp_record);
+	      	}
+	      	return result_orders;
+	    } catch (SQLException sqlex) {
+	      sqlex.printStackTrace();
+	    }
+	    return null;
+
+		}
+
+
+
+
+
 
 
 

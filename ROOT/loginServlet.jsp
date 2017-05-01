@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <%@page import="java.util.*, java.lang.StringBuffer,
-	dbController.DatabaseController" errorPage="error.jsp" %>
+	dbController.DatabaseController" %>
 <html>
 <head>
 	<title> Login JSP </title>
@@ -22,8 +22,10 @@
 
 	if(loginResult.compareTo("error") != 0){
 		String[] resultArray = loginResult.split(",");
-		String resultUser= resultArray[0];
-		String resultType= resultArray[1];
+		String resultUserID= resultArray[0];
+		String resultUser= resultArray[1];
+		String resultType= resultArray[2];
+		session.setAttribute("id", resultUserID);
 		session.setAttribute("username", resultUser);
 		session.setAttribute("type", resultType);
 		if(resultType.compareTo("Manager") == 0)

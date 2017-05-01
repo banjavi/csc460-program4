@@ -13,6 +13,7 @@
         <%
         String currentUser = session.getAttribute("username").toString();
         String currentType = session.getAttribute("type").toString();
+
         out.println("Hello " + currentUser + " | " + currentType);
         %>
       </h2>

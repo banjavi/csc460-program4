@@ -120,10 +120,15 @@ create trigger trg_purchase_id
      from dual;
  end;
  /
-insert into banjavi.orders values(0, 1, 1, TO_DATE('2017/05/03 21:02:44', 'yyyy/mm/dd hh24:mi:ss'), TO_DATE('2017/05/03 21:02:44', 'yyyy/mm/dd hh24:mi:ss'), 18, 8);
-insert into banjavi.orders values(0, 1, 1, TO_DATE('2017/05/03 21:02:44', 'yyyy/mm/dd hh24:mi:ss'), TO_DATE('2017/05/03 21:02:44', 'yyyy/mm/dd hh24:mi:ss'), 11, 4);
-insert into banjavi.orders values(0, 1, 1, TO_DATE('2017/05/03 21:02:44', 'yyyy/mm/dd hh24:mi:ss'), TO_DATE('2017/05/03 21:02:44', 'yyyy/mm/dd hh24:mi:ss'), 1, 20);
-insert into banjavi.orders values(0, 2, 5, TO_DATE('2017/04/02 22:03:24', 'yyyy/mm/dd hh24:mi:ss'), TO_DATE('2017/04/04 22:03:24', 'yyyy/mm/dd hh24:mi:ss'), 16, 1);
-insert into banjavi.orders values(0, 2, 5, TO_DATE('2017/04/02 22:03:24', 'yyyy/mm/dd hh24:mi:ss'), null, 5, 4);
-insert into banjavi.orders values(0, 3, 6, TO_DATE('2017/01/10 11:22:22', 'yyyy/mm/dd hh24:mi:ss'), null, 7, 2);
+insert into banjavi.orders values(0, 1, 1, TO_DATE('2017/05/03', 'yyyy/mm/dd'), TO_DATE('2017/05/03', 'yyyy/mm/dd'), 18, 8);
+insert into banjavi.orders values(0, 1, 1, TO_DATE('2017/05/03', 'yyyy/mm/dd'), TO_DATE('2017/05/03', 'yyyy/mm/dd'), 11, 4);
+insert into banjavi.orders values(0, 1, 1, TO_DATE('2017/05/03', 'yyyy/mm/dd'), TO_DATE('2017/05/03', 'yyyy/mm/dd'), 1, 3);
+insert into banjavi.orders values(0, 2, 5, TO_DATE('2017/04/02', 'yyyy/mm/dd'), TO_DATE('2017/04/04', 'yyyy/mm/dd'), 16, 1);
+
+insert into banjavi.orders values(0, 3, 5, TO_DATE('2017/04/02', 'yyyy/mm/dd'), TO_DATE('2017/04/04', 'yyyy/mm/dd'), 6, 1);
+insert into banjavi.orders values(0, 3, 5, TO_DATE('2017/04/02', 'yyyy/mm/dd'), TO_DATE('2017/04/04', 'yyyy/mm/dd'), 22, 3);
+insert into banjavi.orders values(0, 4, 5, TO_DATE('2017/06/12', 'yyyy/mm/dd'), TO_DATE('2017/06/14', 'yyyy/mm/dd'), 1, 7);
+insert into banjavi.orders values(0, 4, 5, TO_DATE('2017/06/12', 'yyyy/mm/dd'), TO_DATE('2017/04/14', 'yyyy/mm/dd'), 17, 5);
+insert into banjavi.orders values(0, 4, 5, TO_DATE('2017/06/12', 'yyyy/mm/dd'), TO_DATE('2017/04/14', 'yyyy/mm/dd'), 7, 7);
+
 grant select on banjavi.orders to public;
