@@ -79,7 +79,7 @@ public class DatabaseController {
 	        Class.forName("oracle.jdbc.OracleDriver");
 	        connection_ = DriverManager.getConnection(connect_string_, username, password);
 	        statement_ = connection_.createStatement();
-			statement2_ = connection_.createStatement();	        
+			statement2_ = connection_.createStatement();
 			return;
 	    } catch (SQLException sqlex) {
 	        sqlex.printStackTrace();
@@ -215,6 +215,28 @@ public class DatabaseController {
 
 	}
 
+// type is either Manager or Customer
+	public Vector<String> viewAllOrders(String type) {
+		String sql_query = "SELECT order_id, banjavi.orders.user_id, date_placed, pick_up_date, product_id, quantity FROM banjavi.orders, banjavi.users WHERE banjavi.orders.user_id = banjavi.users.user_id AND type = '" + type + "' ORDER BY order_id";
+		try {
+		ResultSet rs  = statement_.executeQuery(sql_query);
+		Vector<String> result_orders = new Vector<String>();
+		while (rs.next()) {
+			String temp_record = rs.getInt("ORDER_ID") + "##" + rs.getInt("USER_ID") + "##" + rs.getDate("DATE_PLACED") +
+				"##" + rs.getDate("PICK_UP_DATE") + "##" + rs.getInt("PRODUCT_ID") +
+				"##" + rs.getInt("QUANTITY");
+
+		//System.out.println(temp_record);
+				result_orders.add(temp_record);
+				}
+				return result_orders;
+		} catch (SQLException sqlex) {
+			sqlex.printStackTrace();
+		}
+		return null;
+
+}
+
 	public int orderProducts(int userID, int productID, int quantity, int orderID) {
 			int oID = 0;
 			String type = "";
@@ -224,11 +246,11 @@ public class DatabaseController {
 			java.util.Date today = new java.util.Date();
 
 			java.sql.Date date_placed = new java.sql.Date(today.getTime());
-			
+
 			String sql_query = "SELECT DISTINCT count(order_id) FROM banjavi.orders";
 			//this creates a new oderID each time when inserting one product at a time
 			//change to take in a orderID parameter or ??
-			if (orderID == -1) {// flag that means we should return a new orderID (new order has started)			
+			if (orderID == -1) {// flag that means we should return a new orderID (new order has started)
 				try {
 					ResultSet rs  = statement_.executeQuery(sql_query);
 					while(rs.next()) {
@@ -241,7 +263,7 @@ public class DatabaseController {
 				oID = orderID;
 			}
 			sql_query = "SELECT type FROM banjavi.users WHERE user_id= " + userID;
-			
+
 		try {
 				ResultSet rs  = statement_.executeQuery(sql_query);
 				while(rs.next()) {
@@ -254,7 +276,7 @@ public class DatabaseController {
 					pick_up = date_placed;
 					UpdateStock(productID, quantity);
 				}
-				
+
 				sql_query = "insert into banjavi.orders values(0," + oID + ", " + userID + ", "
 						+ "TO_DATE('" + date_placed + "', 'yyyy-mm-dd'),TO_DATE('" + pick_up + "', 'yyyy-mm-dd'), " +
 						productID + ", " + quantity + ")";
@@ -263,7 +285,7 @@ public class DatabaseController {
 				} catch(SQLException sqlex) {
 				sqlex.printStackTrace();
 				}
-		return oID;	
+		return oID;
 		}
 
 	public  void UpdateStock(int productID, int qty) {
@@ -273,18 +295,18 @@ public class DatabaseController {
 		 while(rs.next()){
 				qty = rs.getInt(1) + qty;
 			}
-		 
+
 		   String sql_query = "UPDATE banjavi.products SET stock = " + qty +" WHERE product_id = " + productID;
-		   
+
 			rs  = statement_.executeQuery(sql_query);
 				 // should only execute if the user could be inserted
 		 } catch (SQLException sqlex) {
 				sqlex.printStackTrace();
 			}
-			
-		  
+
+
 		  }
-	
+
 	public Vector<String> viewUnprocessedOrders() {
 	@SuppressWarnings("deprecation")
 	java.sql.Date d = new java.sql.Date(0, 0, 0);
@@ -305,9 +327,9 @@ public class DatabaseController {
 		}
 	return null;
 	}
-	
+
 	public void checkout(int orderID) {
-		
+
 		String sql_query = "SELECT product_id, quantity FROM banjavi.orders WHERE order_id= " + orderID;
 		int pID = 0;
 		int qty = 0;
@@ -322,11 +344,11 @@ public class DatabaseController {
 				java.sql.Date pick_up = new java.sql.Date(today.getTime());
 				sql_query = "UPDATE banjavi.orders SET pick_up_date = TO_DATE('"+ pick_up +"', 'yyyy-mm-dd') where"
 						+ " order_id = "+ orderID;
-				
+
 				ResultSet temp = statement2_.executeQuery(sql_query);
-				
+
 				sql_query = "SELECT stock from banjavi.products WHERE product_id= " + pID;
-				
+
 				ResultSet sto = statement2_.executeQuery(sql_query);
 				while(sto.next()) {
 					qty = sto.getInt(1) - qty;

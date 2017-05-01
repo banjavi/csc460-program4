@@ -19,8 +19,8 @@
 
       <a href="managerCheckOutCustomer.jsp">Perform Customer Check-out</a><br/><br/>
 			<a href="managerPlaceSupplyOrder.jsp">Place New Supply Order</a><br/><br/>
-			<a href="managerQuerySupplyOrders.jsp">Query Supply Orders</a><br/><br/>
-      <a href="managerQueryCustomerOrders.jsp">Query Online Customer Orders</a><br/><br/>
+			<a href="managerViewSupplyOrders.jsp">View Supply Orders</a><br/><br/>
+      <a href="managerViewCustomerOrders.jsp">View Online Customer Orders</a><br/><br/>
       <a href="managerGetStockInfo.jsp">Get Information About McCannMart Current Stock</a><br/><br/>
 			<a href="managerUserSettings.jsp">User Settings</a><br/><br/>
 

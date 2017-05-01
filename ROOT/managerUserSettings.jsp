@@ -46,7 +46,7 @@
        	 		content.append(
             			"<tr id=\"tablerow_" + i + "\">");
         			content.append(
-            			"<td class=\"postlist\">" +
+            			"<td>" +
             			detail[0] + "</td>");
         			content.append(
             			"<td>" + detail[1] + "</td>");

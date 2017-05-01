@@ -18,6 +18,7 @@
       </h2>
 
 		<a href="employeeCheckOutCustomer.jsp">Perform Customer Check-out</a><br/><br/>
+		<a href="employeeViewCustomerOrders.jsp">View Online Customer Orders</a><br/><br/>
 		<a href="employeeGetStockInfo.jsp">Get Information About McCannMart Current Stock</a><br/><br/>
 
       <br/>

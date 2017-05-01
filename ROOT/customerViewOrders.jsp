@@ -52,7 +52,7 @@
 				content.append("<tr><th><u>Name</u>&nbsp;&nbsp;&nbsp;&nbsp;</th>" +
 					"<th><u>Quantity</u>&nbsp;&nbsp;&nbsp;&nbsp;</th> " +
 					"<th><u>Cost</u>&nbsp;&nbsp;&nbsp;&nbsp;</th></tr>");
-				
+
 			}
 			content.append("<tr><td>" + record[3] + "</td><td>" + record[4] + "</td><td>"  + record[5] + "</td></tr>");
 		}
