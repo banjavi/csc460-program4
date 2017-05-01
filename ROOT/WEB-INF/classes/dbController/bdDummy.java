@@ -339,6 +339,24 @@ public class dbDummy {
 		
 	}
 	
+	public Vector<Integer> OrdersContainingProduct(int productID){
+		//returns a list of all orderIds containing the product
+		String sql_query = "SELECT order_id FROM banjavi.orders WHERE product_id = " + productID;
+		try {
+			ResultSet rs = statement_.executeQuery(sql_query);
+			Vector<Integer> result_orders = new Vector<Integer>();
+			while(rs.next()) {
+				int temp_record = rs.getInt("ORDER_ID");
+				result_orders.add(temp_record);
+			}
+			return result_orders;
+		} catch (SQLException sqlex) {
+			sqlex.printStackTrace();
+		}
+	return null;
+		
+		
+	}
 	
 	
 
