@@ -170,7 +170,6 @@ public class DatabaseController {
 			Vector<Vector<String>> result_category = new Vector<Vector<String>>();
 			String currentCategory = "";
 			int categoryIndex = -1;
-			rs.next();
 			while (rs.next()) {
 				String category = rs.getString("CATEGORY");
 				if (!currentCategory.equals(category)) { // create new list for that category
@@ -179,7 +178,7 @@ public class DatabaseController {
 					result_category.add(categoryIndex, new Vector<String>());
 			 	}
 	     	String temp_record = rs.getInt("PRODUCT_ID") + "##" + rs.getString("NAME") +
-         	"##" + rs.getInt("STOCK") + "##" +rs.getDouble("PRICE");
+         	"##" + rs.getInt("STOCK") + "##" +rs.getDouble("PRICE") + "##" + category;
 			//System.out.println(temp_record);
 	        result_category.get(categoryIndex).add(temp_record);
 	      	}

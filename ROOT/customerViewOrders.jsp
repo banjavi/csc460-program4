@@ -43,7 +43,7 @@
 			if (currentOrderID != oID) {
 				currentOrderID = oID;
 				content.append("<br/><tr><th><u><h3> Order#: " + record[0] + " placed on " + record[1] +
-				", scheduled for pick up " + record[2] + "</h3></u></th></tr><hr/>");
+				", scheduled for pick up " + record[2] + "</h3></u></th></tr>");
 
 				content.append("<tr><th><u>Name</u>&nbsp;&nbsp;&nbsp;&nbsp;</th>" +
 					"<th><u>Quantity</u>&nbsp;&nbsp;&nbsp;&nbsp;</th> " +
@@ -62,7 +62,7 @@
       <br/>
       <br/>
       <br/><br/><br/><br/><br/>
-    <a href="customerViewOrders.jsp">Back</a>
+    <a href="customerMenu.jsp">Back</a>
     </center>
   </body>
 </html>
