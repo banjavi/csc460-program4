@@ -371,7 +371,7 @@ public void orderProducts(int userID, int productID, int quantity) {
 			try {
 			sql_query = "SELECT type FROM banjavi.users WHERE user_id= " + userID;
 			
-				rs  = statement_.executeQuery(sql_query);
+				ResultSet rs  = statement_.executeQuery(sql_query);
 				String type = "";
 				while(rs.next()) {
 					type = rs.getString(1);
