@@ -45,14 +45,13 @@
 
 			for (int i = 0; i < category.size(); i++) {
 				String[] record = category.get(i).split("##");
-				String[] record = category.get(i).split("##");
 				int barcodeValue = Integer.parseInt(record[0]);
 				record[0] = "#" + String.format("%06d", barcodeValue);
 				content.append("<tr id=\"tablerow_" + i + "\">");
 				content.append("<td>" + record[0] + "</td>");
 				content.append("<td>" + record[1] + "</td>");
 				content.append("<td>" + record[3] + "</td>");
-				content.append("<td><input type=\"number\" value=\"0\" min=\"0\" max=\"" + record[2] + "\" name=\"" + record[0] +"\" ></td>"); // name is product id
+				content.append("<td><input type=\"number\" value=\"0\" min=\"0\" max=\"" + record[2] + "\" name=\"" + barcodeValue +"\" ></td>"); // name is product id
 				content.append("</tr>");
 			}
 		}

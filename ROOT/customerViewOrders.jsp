@@ -42,12 +42,17 @@
 			int oID = Integer.parseInt(record[0]);
 			if (currentOrderID != oID) {
 				currentOrderID = oID;
-				content.append("<br/><tr><th><u><h3> Order#: " + record[0] + " placed on " + record[1] +
-				", scheduled for pick up " + record[2] + "</h3></u></th></tr>");
-
+				if (record[2].equals("1899-12-31")) { // order hasn't been picked up yet
+					content.append("<br/><tr><th><u><h3> Order#: " + record[0] + " placed on " + record[1] +
+                                        ", needs to be picked up whenever </h3></u></th></tr>");
+				} else {
+					content.append("<br/><tr><th><u><h3> Order#: " + record[0] + " placed on " + record[1] +
+					", picked up on " + record[2] + "</h3></u></th></tr>");
+				}
 				content.append("<tr><th><u>Name</u>&nbsp;&nbsp;&nbsp;&nbsp;</th>" +
 					"<th><u>Quantity</u>&nbsp;&nbsp;&nbsp;&nbsp;</th> " +
 					"<th><u>Cost</u>&nbsp;&nbsp;&nbsp;&nbsp;</th></tr>");
+				
 			}
 			content.append("<tr><td>" + record[3] + "</td><td>" + record[4] + "</td><td>"  + record[5] + "</td></tr>");
 		}

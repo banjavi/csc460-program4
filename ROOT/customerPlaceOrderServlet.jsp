@@ -13,15 +13,21 @@
  	response.setContentType("text/html;charset=utf-8");
 
 	String username = request.getParameter("username");
-	String order = request.getParameter("order");
-
+	int currentID = Integer.parseInt(session.getAttribute("id").toString());
 	DatabaseController dbcontroller = new DatabaseController();
 	dbcontroller.Open();
-
-	boolean orderSuccess =  dbcontroller.orderProducts(username, order); 
-
-  if(orderSuccess == true){
-    response.sendRedirect("customerMenu.jsp");
+	int orderID = -1;
+	boolean orderSuccess = false;
+	for (int i = 1; i <= 24; i++) {
+		int qty = Integer.parseInt(request.getParameter(i+""));
+		if (qty > 0) {
+			orderID = dbcontroller.orderProducts(currentID, i, qty, orderID); 
+			orderSuccess = true;
+		}
+	}
+	
+	if(orderSuccess == true){
+    		response.sendRedirect("customerMenu.jsp");
 	}
 	else {
 		response.sendRedirect("error.jsp");

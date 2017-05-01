@@ -9,6 +9,7 @@ import java.sql.Statement;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.Vector;
+import java.util.Calendar;
 
 public class DatabaseController {
 	static final long serialVersionUID = 1L;
@@ -209,15 +210,77 @@ public class DatabaseController {
 	    }
 	    return null;
 
+	}
+
+	public int orderProducts(int userID, int productID, int quantity, int orderID) {
+			int oID = 0;
+			String type = "";
+			@SuppressWarnings("deprecation")
+			java.sql.Date pick_up = new java.sql.Date(0, 0, 0);
+			Calendar date = Calendar.getInstance();
+			java.util.Date today = new java.util.Date();
+
+			java.sql.Date date_placed = new java.sql.Date(today.getTime());
+			
+			String sql_query = "SELECT DISTINCT count(order_id) FROM banjavi.orders";
+			//this creates a new oderID each time when inserting one product at a time
+			//change to take in a orderID parameter or ??
+			if (orderID == -1) {// flag that means we should return a new orderID (new order has started)			
+				try {
+					ResultSet rs  = statement_.executeQuery(sql_query);
+					while(rs.next()) {
+						oID = rs.getInt(1) + 1;
+					}
+				} catch(SQLException sqlex) {
+					sqlex.printStackTrace();
+				}
+			} else {
+				oID = orderID;
+			}
+			sql_query = "SELECT type FROM banjavi.users WHERE user_id= " + userID;
+			
+		try {
+				ResultSet rs  = statement_.executeQuery(sql_query);
+				while(rs.next()) {
+					type = rs.getString(1);
+				}
+				} catch(SQLException sqlex) {
+				sqlex.printStackTrace();
+			}
+				if(type.equals("Manager")) {
+					pick_up = date_placed;
+					UpdateStock(productID, quantity);
+				}
+				
+				sql_query = "insert into banjavi.orders values(0," + oID + ", " + userID + ", "
+						+ "TO_DATE('" + date_placed + "', 'yyyy-mm-dd'),TO_DATE('" + pick_up + "', 'yyyy-mm-dd'), " +
+						productID + ", " + quantity + ")";
+				try {
+				statement_.executeQuery(sql_query);
+				} catch(SQLException sqlex) {
+				sqlex.printStackTrace();
+				}
+		return oID;	
 		}
 
-
-
-
-
-
-
-
+	public  void UpdateStock(int productID, int qty) {
+		 String query = "select stock from products where product_id = "+ productID;
+		 try{
+		 ResultSet rs  = statement_.executeQuery(query);
+		 while(rs.next()){
+				qty = rs.getInt(1) + qty;
+			}
+		 
+		   String sql_query = "UPDATE banjavi.products SET stock = " + qty +" WHERE product_id = " + productID;
+		   
+			rs  = statement_.executeQuery(sql_query);
+				 // should only execute if the user could be inserted
+		 } catch (SQLException sqlex) {
+				sqlex.printStackTrace();
+			}
+			
+		  
+		  }
 
 
 }
