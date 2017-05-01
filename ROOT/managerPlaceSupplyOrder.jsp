@@ -33,28 +33,7 @@
     		if (vecResult == null) {
                content.append("Query result is null!");
           }
-		/*
-  		content.append("<tr><th><u>ID</u>&nbsp;&nbsp;&nbsp;&nbsp;</th>" +
-  		"<th><u>Username</u>&nbsp;&nbsp;&nbsp;&nbsp;</th> " +
-  		"<th><u>Type</u>&nbsp;&nbsp;&nbsp;&nbsp;</th></tr>");
 
-    		if (vecResult != null && vecResult.size() > 0) {
-      		for (int i = 0; i < vecResult.size(); i++) {
-        			String row = vecResult.get(i);
-       		 	String[] detail = row.split("##");
-
-       	 		content.append(
-            			"<tr id=\"tablerow_" + i + "\">");
-        			content.append(
-            			"<td class=\"postlist\">" +
-            			detail[0] + "</td>");
-        			content.append(
-            			"<td>" + detail[1] + "</td>");
-        			content.append("<td>" + detail[2] + "</td>");
-        			content.append("</tr>");
-      		}
-    		}
-		*/
 		for (Vector<String> category: vecResult) {
 			String[] firstRecord = category.get(0).split("##");
 			String categoryName = firstRecord[firstRecord.length-1];
@@ -72,7 +51,7 @@
 				content.append("<td>" + record[1] + "</td>");
         content.append("<td>" + record[2] + "</td>");
 				content.append("<td>" + record[3] + "</td>");
-				content.append("<td><input type=\"number\" id=" + record[0] +" " + record[3] + "</td>");
+				content.append("<td><input type=\"number\" value=\"0\" min=\"0\" max=\"" + record[2] + "\" name=\"" + record[0] +"\" ></td>"); // name is product id
 				content.append("</tr>");
 			}
 		}

@@ -17,7 +17,7 @@
         %>
       </h2>
       <h3>Place an Order</h3>
-	
+
       <%
         DatabaseController dbcontroller = new DatabaseController();
         dbcontroller.Open();
@@ -33,7 +33,7 @@
     		if (vecResult == null) {
                content.append("Query result is null!");
           }
-		
+
 		for (Vector<String> category: vecResult) {
 			String[] firstRecord = category.get(0).split("##");
 			String categoryName = firstRecord[firstRecord.length-1];
@@ -49,7 +49,7 @@
 				content.append("<td>" + record[0] + "</td>");
 				content.append("<td>" + record[1] + "</td>");
 				content.append("<td>" + record[3] + "</td>");
-				content.append("<td><input type=\"number\" min=\"0\" max=\"" + record[2] + "\" name=\"" + record[0] +"\" ></td>"); // name is product id
+				content.append("<td><input type=\"number\" value=\"0\" min=\"0\" max=\"" + record[2] + "\" name=\"" + record[0] +"\" ></td>"); // name is product id
 				content.append("</tr>");
 			}
 		}
@@ -61,7 +61,7 @@
 
 
 
-		   
+
     		<button type="submit">Place Order</button>
 		</form>
 
