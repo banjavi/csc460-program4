@@ -171,30 +171,26 @@ public class DatabaseController {
 			}
 		return null;
 	}
-	*/
 	
-	/*
-	 * Returns all customer orders that have not been checked out yet
-	 */
-public Vector<String> viewUnprocessedOrders() {
-	java.sql.Date d = new java.sql.Date(0, 0, 0);
-	String sql_query = "SELECT * FROM banjavi.orders WHERE pick_up_date= TO_DATE('" + d + "', 'yyyy-mm-dd'), ";
-	try{
-		ResultSet rs = statement_.executeQuery(sql_query);
-		Vector<String> result_orders = new Vector<String>();
-		while(rs.next()) {
-			String temp_record = rs.getInt("PURCHASE_ID") + "##" + rs.getInt("ORDER_ID") +
-					"##" + rs.getInt("USER_ID") + "##" + rs.getDate("DATE_PLACED") + "##" +
-					rs.getDate("PICK_UP_DATE") + "##" + rs.getInt("PRODUCT_ID") + "##" +
-					rs.getInt("QUANTITY");
-			result_orders.add(temp_record);
-		}
-		return result_orders;
-		} catch (SQLException sqlex) {
-			sqlex.printStackTrace();
-		}
-	return null;
-	}
+	public Vector<String> viewUnprocessedOrders() {
+		String sql_query = "SELECT * FROM banjavi.orders WHERE pick_up_date= NULL";
+		try{
+			ResultSet rs = statement_.executeQuery(sql_query);
+			Vector<String> result_orders = new Vector<String>();
+			while(rs.next()) {
+				String temp_record = rs.getInt("PURCHASE_ID") + "##" + rs.getInt("ORDER_ID") +
+						"##" + rs.getInt("USER_ID") + "##" + rs.getDate("DATE_PLACED") + "##" +
+						rs.getDate("PICK_UP_DATE") + "##" + rs.getInt("PRODUCT_ID") + "##" +
+						rs.getInt("QUANTITY");
+				result_order.add(temp_record);
+			}
+			return result_orders
+			} catch (SQLException sqlex) {
+				sqlex.printStackTrace();
+			}
+		return null;
+	}	
+*/
 	public boolean insertUser (String username, String password, String type) {
 
 
@@ -214,7 +210,6 @@ public Vector<String> viewUnprocessedOrders() {
 			String sql_query = "UPDATE banjavi.orders SET pick_up_date= '" + pick_up "' WHERE order_id= '" + orderID + "'";
 			statement_.execute(sql_query);
 		}
-
 		public Vector<String> FindAllUsers() {
 			String sql_query = "SELECT user_id, username,type FROM banjavi.users order by user_id";
 			try {
@@ -232,7 +227,6 @@ public Vector<String> viewUnprocessedOrders() {
 			}
 			return null;
 		}
-
 */
 		public boolean deleteUser (String username) {
 
