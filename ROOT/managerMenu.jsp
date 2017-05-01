@@ -13,6 +13,7 @@
         <%
         String currentUser = session.getAttribute("username").toString();
         String currentType = session.getAttribute("type").toString();
+	session.setAttribute("ProductID", null);
         out.println("Hello " + currentUser + " | " + currentType);
         %>
       </h2>
@@ -23,7 +24,8 @@
       <a href="managerViewCustomerOrders.jsp">View Online Customer Orders</a><br/><br/>
       <a href="managerGetStockInfo.jsp">Get Information About McCannMart Current Stock</a><br/><br/>
 			<a href="managerUserSettings.jsp">User Settings</a><br/><br/>
-
+			<a href="managerLowStockProducts.jsp">View Products with Low Stock</a><br/><br/>
+			 <a href="managerOrdersContainingProduct.jsp">Find Orders Containing a Product</a><br/><br/>
 
       <br/>
       <br/>

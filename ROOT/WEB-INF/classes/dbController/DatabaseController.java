@@ -387,4 +387,51 @@ public class DatabaseController {
 			sqlex.printStackTrace();
 		}
 	}
+
+	 public Vector<Vector<String>> ProductsToOrder(int number){
+                //returns the list of all products with stock less than the inputed number
+                String sql_query = "SELECT * FROM banjavi.products WHERE stock < " + number;
+		 try {
+                        ResultSet rs  = statement_.executeQuery(sql_query);
+                        Vector<Vector<String>> result_category = new Vector<Vector<String>>();
+                        String currentCategory = "";
+                        int categoryIndex = -1;
+                        while (rs.next()) {
+                                String category = rs.getString("CATEGORY");
+                                if (!currentCategory.equals(category)) { // create new list for that category
+                                        categoryIndex++;
+                                        currentCategory = category;
+                                        result_category.add(categoryIndex, new Vector<String>());
+                                }
+                String temp_record = rs.getInt("PRODUCT_ID") + "##" + rs.getString("NAME") +
+                "##" + rs.getInt("STOCK") + "##" +rs.getDouble("PRICE") + "##" + category;
+                        //System.out.println(temp_record);
+                result_category.get(categoryIndex).add(temp_record);
+                }
+                return result_category;
+            } catch (SQLException sqlex) {
+              sqlex.printStackTrace();
+            }
+            return null;
+          }
+
+	 public Vector<Integer> OrdersContainingProduct(int productID){
+                //returns a list of all orderIds containing the product
+                String sql_query = "SELECT order_id FROM banjavi.orders WHERE product_id = " + productID;
+                try {
+                        ResultSet rs = statement_.executeQuery(sql_query);
+                        Vector<Integer> result_orders = new Vector<Integer>();
+                        while(rs.next()) {
+                                int temp_record = rs.getInt("ORDER_ID");
+                                result_orders.add(temp_record);
+                        }
+                        return result_orders;
+                } catch (SQLException sqlex) {
+                        sqlex.printStackTrace();
+                }
+        return null;
+
+
+        }
+
 }

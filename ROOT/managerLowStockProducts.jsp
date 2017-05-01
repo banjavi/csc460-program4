@@ -4,7 +4,7 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Stock Info</title>
+    <title>Low Stock Info</title>
   </head>
   <body>
     <br/><br/><br/><br/><br/>
@@ -13,15 +13,24 @@
         <%
         String currentUser = session.getAttribute("username").toString();
         String currentType = session.getAttribute("type").toString();
-				String filterCategory = request.getParameter("filter");
+	Object lowQty = session.getAttribute("lowQty");
 
         out.println("Hello " + currentUser + " | " + currentType);
         %>
       </h2>
+		<form action="managerLowStockProductsServlet.jsp" method="POST">
+                <p>Show products with stock less than...</p>
+                <input type="number" min="1" name="qty" >
+                <button type="submit">Go</button>
+                </form>
+	
 			<h3><%
-			if(filterCategory == null)
-				filterCategory="All";
-			out.println("Stock Information | " + "Filter By " + filterCategory); %>
+			String QTY;
+			if(lowQty == null)
+				QTY = "5";
+			else
+				QTY = lowQty.toString();
+			out.println("Stock Information | " + "Filter by Stock < " + QTY); %>
 		</h3>
       <%
         DatabaseController dbcontroller = new DatabaseController();
@@ -34,7 +43,7 @@
     		content.append("<table>");
 
     		// asking dbcontroller to list the products table
-    		Vector<Vector<String>> vecResult = dbcontroller.FindAllProducts(filterCategory);
+    		Vector<Vector<String>> vecResult = dbcontroller.ProductsToOrder(Integer.parseInt(QTY));
     		if (vecResult == null) {
                content.append("Query result is null!");
           }
@@ -44,16 +53,16 @@
 			content.append("<tr><th><u><h2>" + categoryName + "</h2></u></th></tr>");
 			content.append("<tr><th><u>Barcode</u>&nbsp;&nbsp;&nbsp;&nbsp;</th>" +
   			"<th><u>Name</u>&nbsp;&nbsp;&nbsp;&nbsp;</th> " +
-        "<th><u>Stock</u>&nbsp;&nbsp;&nbsp;&nbsp;</th> " +
+        		"<th><u>Stock</u>&nbsp;&nbsp;&nbsp;&nbsp;</th> " +
   			"<th><u>Price</u>&nbsp;&nbsp;&nbsp;&nbsp;</th></tr>");
 			for (int i = 0; i < category.size(); i++) {
 				String[] record = category.get(i).split("##");
-        int barcodeValue = Integer.parseInt(record[0]);
-        record[0] = "#" + String.format("%06d", barcodeValue);
+        			int barcodeValue = Integer.parseInt(record[0]);
+        			record[0] = "#" + String.format("%06d", barcodeValue);
 				content.append("<tr id=\"tablerow_" + i + "\">");
 				content.append("<td>" + record[0] + "</td>");
 				content.append("<td>" + record[1] + "</td>");
-        content.append("<td>" + record[2] + "</td>");
+        			content.append("<td>" + record[2] + "</td>");
 				double temp = Double.parseDouble(record[3]);
 				record[3] = "$" + String.format("%.2f", temp);
 				content.append("<td>" + record[3] + "</td>");
@@ -65,32 +74,7 @@
   		out.write("</table><hr/>");
       dbcontroller.Close();
         %>
-
-				<br><br>
-
-				<form action="managerGetStockInfo.jsp" method="POST">
-					<h4>Filter By Category </h4>
-					<select name="filter">
-						<option value="All">All</option>
-				  <option value="Beverages">Beverages</option>
-				  <option value="Dairy">Dairy</option>
-					<option value="Frozen">Frozen</option>
-					<option value="Meat">Meat</option>
-					<option value="Medicine">Medicine</option>
-					<option value="Produce">Produce</option>
-				  <option value="Snacks">Snacks</option>
-				</select>
-				<button type="submit">Submit</button>
-
-			</form>
-      <br/>
-      <br/>
-      <br/><br/><br/><br/><br/>
-<% if (currentType.equals("Manager"))  
-   out.write("<a href=\"managerMenu.jsp\">Back</a>")
- else
-	out.write("<a href=\"employeeMenu.jsp\">Back</a>")
-%>
+    <a href="managerMenu.jsp">Back</a>
     </center>
   </body>
 </html>
