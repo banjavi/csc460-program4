@@ -398,6 +398,27 @@ public void orderProducts(int userID, int productID, int quantity) {
 		return total;
 	}
 	
+	public Vector<String> viewUnprocessedOrders() {
+	@SuppressWarnings("deprecation")
+	java.sql.Date d = new java.sql.Date(0, 0, 0);
+	String sql_query = "SELECT * FROM banjavi.orders WHERE pick_up_date= TO_DATE('" + d + "', 'yyyy-mm-dd'), ";
+	try{
+		ResultSet rs = statement_.executeQuery(sql_query);
+		Vector<String> result_orders = new Vector<String>();
+		while(rs.next()) {
+			String temp_record = rs.getInt("PURCHASE_ID") + "##" + rs.getInt("ORDER_ID") +
+					"##" + rs.getInt("USER_ID") + "##" + rs.getDate("DATE_PLACED") + "##" +
+					rs.getDate("PICK_UP_DATE") + "##" + rs.getInt("PRODUCT_ID") + "##" +
+					rs.getInt("QUANTITY");
+			result_orders.add(temp_record);
+		}
+		return result_orders;
+		} catch (SQLException sqlex) {
+			sqlex.printStackTrace();
+		}
+	return null;
+	}
+	
 	
 	
 }
