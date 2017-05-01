@@ -22,6 +22,7 @@ public class dbDummy {
 	   * A handle to the statement.
 	   */
 	  protected Statement statement_;
+	  protected Statement s;
 	  /**
 	   * The connect string to specify the location of DBMS
 	   */
@@ -205,31 +206,34 @@ public class dbDummy {
 			}
 			return false;
 		}
-/*	
+
 	public void checkout(int orderID) {
-			Date pick_up = new Date();
-			pick_up.setHours(0);
-			String sql_query = "UPDATE banjavi.orders SET pick_up_date= '" + pick_up "' WHERE order_id= '" + orderID + "'";
-			statement_.execute(sql_query);
-		}
-		public Vector<String> FindAllUsers() {
-			String sql_query = "SELECT user_id, username,type FROM banjavi.users order by user_id";
-			try {
-				ResultSet rs  = statement_.executeQuery(sql_query);
-				Vector<String> result_users = new Vector<String>();
-				while (rs.next()) {
-					 String temp_record = rs.getInt("USER_ID") + "##" + rs.getString("USERNAME") +
-							 "##" + rs.getString("TYPE");
-					//System.out.println(temp_record);
-					result_users.add(temp_record);
+		
+		String sql_query = "SELECT product_id, quantity FROM banjavi.orders WHERE order_id= " + orderID;
+		String sql;
+		int pID = 0;
+		int qty = 0;
+		try {
+			ResultSet rs = statement_.executeQuery(sql_query);
+			while(rs.next()) {
+				pID = rs.getInt(1);
+				System.out.println(pID);
+				qty = rs.getInt(2);
+				System.out.println(qty);
+				sql_query = "SELECT stock from banjavi.products WHERE product_id= " + pID;
+				
+				ResultSet sto = s.executeQuery(sql_query);
+				while(sto.next()) {
+					qty = sto.getInt(1) - qty;
 				}
-				return result_users;
-			} catch (SQLException sqlex) {
-				sqlex.printStackTrace();
+				String str = "UPDATE banjavi.products SET stock= " + qty + " WHERE product_id= " + pID;
+				ResultSet rs2 = s.executeQuery(str);
 			}
-			return null;
+		} catch (SQLException sqlex) {
+			sqlex.printStackTrace();
 		}
-*/
+		}
+	
 		public boolean deleteUser (String username) {
 
 			String sql_query = 	"delete banjavi.users where username=" + "'" + username +"'";
