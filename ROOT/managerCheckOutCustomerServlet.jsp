@@ -3,7 +3,7 @@
 	dbController.DatabaseController" errorPage="error.jsp" %>
 <html>
 <head>
-	<title> Place Order JSP </title>
+	<title> Checkout Order JSP </title>
 	<meta charset=UTF-8" />
 	<script type="text/javascript"></script>
 </head>
@@ -12,17 +12,19 @@
 	request.setCharacterEncoding("utf-8");
  	response.setContentType("text/html;charset=utf-8");
 	String currentUser = session.getAttribute("username").toString();
-    String currentType = session.getAttribute("type").toString();
+    	String currentType = session.getAttribute("type").toString();
 	
-	String orderID = request.getParameter("orderid");
+	int orderID = Integer.parseInt(request.getParameter("orderid"));
 
 	DatabaseController dbcontroller = new DatabaseController();
 	dbcontroller.Open();
 
-	boolean orderSuccess =  dbcontroller.checkout(orderID); 
+	boolean orderSuccess =  false;
+	dbcontroller.checkout(orderID);
+	orderSuccess = true; 
 
   if(orderSuccess == true){
-		if (currentType.equals("Manager")
+		if (currentType.equals("Manager"))
     		response.sendRedirect("managerMenu.jsp");
 		else
 			response.sendRedirect("employeeMenu.jsp");

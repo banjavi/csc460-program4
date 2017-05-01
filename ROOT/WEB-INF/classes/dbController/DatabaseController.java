@@ -21,6 +21,7 @@ public class DatabaseController {
 	   * A handle to the statement.
 	   */
 	  protected Statement statement_;
+		protected Statement statement2_;
 	  /**
 	   * The connect string to specify the location of DBMS
 	   */
@@ -49,6 +50,7 @@ public class DatabaseController {
 	  public void Close() {
 	    try {
 	      statement_.close();
+		  statement2_.close();
 	      connection_.close();
 	    } catch (SQLException e) {
 	      e.printStackTrace();
@@ -77,7 +79,8 @@ public class DatabaseController {
 	        Class.forName("oracle.jdbc.OracleDriver");
 	        connection_ = DriverManager.getConnection(connect_string_, username, password);
 	        statement_ = connection_.createStatement();
-	        return;
+			statement2_ = connection_.createStatement();	        
+			return;
 	    } catch (SQLException sqlex) {
 	        sqlex.printStackTrace();
 	    } catch (ClassNotFoundException e) {
@@ -281,6 +284,58 @@ public class DatabaseController {
 			
 		  
 		  }
-
-
+	
+	public Vector<String> viewUnprocessedOrders() {
+	@SuppressWarnings("deprecation")
+	java.sql.Date d = new java.sql.Date(0, 0, 0);
+	String sql_query = "SELECT * FROM banjavi.orders WHERE pick_up_date= TO_DATE('" + d + "', 'yyyy-mm-dd') ";
+	try{
+		ResultSet rs = statement_.executeQuery(sql_query);
+		Vector<String> result_orders = new Vector<String>();
+		while(rs.next()) {
+			String temp_record = rs.getInt("PURCHASE_ID") + "##" + rs.getInt("ORDER_ID") +
+					"##" + rs.getInt("USER_ID") + "##" + rs.getDate("DATE_PLACED") + "##" +
+					rs.getDate("PICK_UP_DATE") + "##" + rs.getInt("PRODUCT_ID") + "##" +
+					rs.getInt("QUANTITY");
+			result_orders.add(temp_record);
+		}
+		return result_orders;
+		} catch (SQLException sqlex) {
+			sqlex.printStackTrace();
+		}
+	return null;
+	}
+	
+	public void checkout(int orderID) {
+		
+		String sql_query = "SELECT product_id, quantity FROM banjavi.orders WHERE order_id= " + orderID;
+		int pID = 0;
+		int qty = 0;
+		try {
+			ResultSet rs = statement_.executeQuery(sql_query);
+			while(rs.next()) {
+				pID = rs.getInt(1);
+				//System.out.println(pID);
+				qty = rs.getInt(2);
+				//System.out.println(qty);
+				java.util.Date today = new java.util.Date();
+				java.sql.Date pick_up = new java.sql.Date(today.getTime());
+				sql_query = "UPDATE banjavi.orders SET pick_up_date = TO_DATE('"+ pick_up +"', 'yyyy-mm-dd') where"
+						+ " order_id = "+ orderID;
+				
+				ResultSet temp = statement2_.executeQuery(sql_query);
+				
+				sql_query = "SELECT stock from banjavi.products WHERE product_id= " + pID;
+				
+				ResultSet sto = statement2_.executeQuery(sql_query);
+				while(sto.next()) {
+					qty = sto.getInt(1) - qty;
+				}
+				String str = "UPDATE banjavi.products SET stock= " + qty + " WHERE product_id= " + pID;
+				ResultSet rs2 = statement2_.executeQuery(str);
+			}
+		} catch (SQLException sqlex) {
+			sqlex.printStackTrace();
+		}
+	}
 }

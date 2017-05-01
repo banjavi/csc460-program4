@@ -19,7 +19,8 @@
       <h3>Checkout Customer Order</h3>
 		<form action="managerCheckOutCustomerServlet.jsp" method="POST">
 		<p> OrderID to checkout:</p>
-    	<input type="number" min="0" name="orderid" >
+    		<input type="number" min="0" name="orderid" >
+		<button type="submit">Checkout</button>
 		</form>
       <%
         DatabaseController dbcontroller = new DatabaseController();
@@ -42,10 +43,10 @@
 			int oID = Integer.parseInt(record[1]);
 			if (currentOrderID != oID) {
 				currentOrderID = oID;
-				content.append("<br/><tr><th><u><h3> Order#: " + currentOrderID + " for User#: " + record[2] +
-				" placed on " + record[3] + "</h3></u></th></tr><hr/>");
+				content.append("<br/><tr><th><u><h3> Order #" + currentOrderID + " for User #" + record[2] +
+				" placed on " + record[3] + "</h3></u></th></tr>");
 			}
-			content.append("<tr><td>" + record[5] + "</td><td>" + record[6] + "</td></tr>");
+			content.append("<tr><td>" + record[5] + "</td><td>Qty " + record[6] + "</td></tr>");
 		}
 		
     	out.write(content.toString());

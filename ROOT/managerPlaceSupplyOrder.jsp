@@ -37,6 +37,7 @@
 		for (Vector<String> category: vecResult) {
 			String[] firstRecord = category.get(0).split("##");
 			String categoryName = firstRecord[firstRecord.length-1];
+			content.append("<form action=\"managerPlaceSupplyOrderServlet.jsp\" method=\"POST\">");
 			content.append("<tr><th><u><h2>" + categoryName + "</h2></u></th></tr>");
 			content.append("<tr><th><u>Barcode</u>&nbsp;&nbsp;&nbsp;&nbsp;</th>" +
   			"<th><u>Name</u>&nbsp;&nbsp;&nbsp;&nbsp;</th> " +
@@ -51,7 +52,7 @@
 				content.append("<td>" + record[1] + "</td>");
         content.append("<td>" + record[2] + "</td>");
 				content.append("<td>" + record[3] + "</td>");
-				content.append("<td><input type=\"number\" value=\"0\" min=\"0\" max=\"" + record[2] + "\" name=\"" + record[0] +"\" ></td>"); // name is product id
+				content.append("<td><input type=\"number\" value=\"0\" min=\"0\" name=\"" + barcodeValue +"\" ></td>"); // name is product id
 				content.append("</tr>");
 			}
 		}
@@ -61,9 +62,6 @@
       dbcontroller.Close();
         %>
 
-
-
-		<form action="managerPlaceSupplyOrderServlet.jsp" method="POST">
 
     		<button type="submit">Place Order</button>
 		</form>
