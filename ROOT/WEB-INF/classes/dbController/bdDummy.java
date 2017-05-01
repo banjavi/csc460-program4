@@ -418,5 +418,24 @@ public void orderProducts(int userID, int productID, int quantity) {
 		  
 		  }
 	
+		public double TotalCost(int orderID, int userID){
+		String sql_query = "SELECT product_id, quantity from banjavi.orders where order_id = "+ orderID;
+		double total = 0.0;
+		try{
+			ResultSet rs  = statement_.executeQuery(sql_query);
+			while(rs.next()){
+				String str = "Select price from banjavi.products where product_id = "+ rs.getInt(1);
+				ResultSet price  = s.executeQuery(str);
+				while(price.next()){
+					total = total + (price.getDouble(1)* rs.getInt(2));
+				}
+			}
+		}catch(SQLException sqlex) {
+			sqlex.printStackTrace();
+		}
+		return total;
+	}
+	
+	
 	
 }
