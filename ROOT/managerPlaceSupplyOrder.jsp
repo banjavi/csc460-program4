@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<%@page import="java.util.*, java.lang.StringBuffer,
-	dbController.DatabaseController" errorPage="error.jsp" %>
+<%@page import="java.util.*, java.lang.*, java.lang.StringBuffer,
+	dbController.DatabaseController" %>
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Place Supply Order</title>
+    <title>Place Order</title>
   </head>
   <body>
     <br/><br/><br/><br/><br/>
@@ -16,7 +16,7 @@
         out.println("Hello " + currentUser + " | " + currentType);
         %>
       </h2>
-      <h3>Table of Products</h3>
+      <h3>Place an Order</h3>
 
       <%
         DatabaseController dbcontroller = new DatabaseController();
@@ -28,23 +28,21 @@
     		StringBuffer content = new StringBuffer();;
     		content.append("<table>");
 
-    		// asking dbcontroller to list the employee table
-    		Vector<String> vecResult = dbcontroller.FindAllProducts();
+    		// asking dbcontroller to list the products table
+    		Vector<Vector<String>> vecResult = dbcontroller.FindAllProducts();
     		if (vecResult == null) {
                content.append("Query result is null!");
           }
-
-  		content.append("<tr><th><u>Barcode</u>&nbsp;&nbsp;&nbsp;&nbsp;</th>" +
-  		"<th><u>Name</u>&nbsp;&nbsp;&nbsp;&nbsp;</th> " +
-      "<th><u>Stock</u>&nbsp;&nbsp;&nbsp;&nbsp;</th> " +
-      "<th><u>Price</u>&nbsp;&nbsp;&nbsp;&nbsp;</th> " +
-  		"<th><u>Category</u>&nbsp;&nbsp;&nbsp;&nbsp;</th></tr>");
+		/*
+  		content.append("<tr><th><u>ID</u>&nbsp;&nbsp;&nbsp;&nbsp;</th>" +
+  		"<th><u>Username</u>&nbsp;&nbsp;&nbsp;&nbsp;</th> " +
+  		"<th><u>Type</u>&nbsp;&nbsp;&nbsp;&nbsp;</th></tr>");
 
     		if (vecResult != null && vecResult.size() > 0) {
       		for (int i = 0; i < vecResult.size(); i++) {
         			String row = vecResult.get(i);
        		 	String[] detail = row.split("##");
-            detail[0] = detail[0].appe
+
        	 		content.append(
             			"<tr id=\"tablerow_" + i + "\">");
         			content.append(
@@ -53,11 +51,32 @@
         			content.append(
             			"<td>" + detail[1] + "</td>");
         			content.append("<td>" + detail[2] + "</td>");
-              content.append("<td>" + detail[3] + "</td>");
-              content.append("<td>" + detail[4] + "</td>");
         			content.append("</tr>");
       		}
     		}
+		*/
+		for (Vector<String> category: vecResult) {
+			String[] firstRecord = category.get(0).split("##");
+			String categoryName = firstRecord[firstRecord.length-1];
+			content.append("<tr><th><u><h2>" + categoryName + "</h2></u></th></tr>");
+			content.append("<tr><th><u>Barcode</u>&nbsp;&nbsp;&nbsp;&nbsp;</th>" +
+  			"<th><u>Name</u>&nbsp;&nbsp;&nbsp;&nbsp;</th> " +
+        "<th><u>Stock</u>&nbsp;&nbsp;&nbsp;&nbsp;</th> " +
+  			"<th><u>Price</u>&nbsp;&nbsp;&nbsp;&nbsp;</th></tr>");
+			for (int i = 0; i < category.size(); i++) {
+				String[] record = category.get(i).split("##");
+        int barcodeValue = Integer.parseInt(record[0]);
+        record[0] = "#" + String.format("%06d", barcodeValue);
+				content.append("<tr id=\"tablerow_" + i + "\">");
+				content.append("<td>" + record[0] + "</td>");
+				content.append("<td>" + record[1] + "</td>");
+        content.append("<td>" + record[2] + "</td>");
+				content.append("<td>" + record[3] + "</td>");
+				content.append("<td><input type=\"number\" id=" + record[0] +" " + record[3] + "</td>");
+				content.append("</tr>");
+			}
+		}
+
     		out.write(content.toString());
   		out.write("</table><hr/>");
       dbcontroller.Close();
@@ -65,27 +84,9 @@
 
 
 
-		<form action="managerAddUserServlet.jsp" method="POST">
-        <h4>Add User </h4>
-		    <input type="text" name="username" placeholder="Username" required>
-        <input type="password" name="password" placeholder="Password" required>
-        <input type="text" name="type" placeholder="Type" required>
-    		<button type="submit">Submit</button>
-		</form>
+		<form action="managerPlaceSupplyOrderServlet.jsp" method="POST">
 
-
-		<form action="managerDeleteUserServlet.jsp" method="POST">
-        <h4>Delete User </h4>
-		    <input type="text" name="username" placeholder="Username" required>
-    		<button type="submit">Submit</button>
-		</form>
-
-
-		<form action="managerUpdateUserServlet.jsp" method="POST">
-        <h4>Update User Type </h4>
-        <input type="text" name="username" placeholder="Username" required>
-		    <input type="text" name="type" placeholder="New Type" required>
-    		<button type="submit">Submit</button>
+    		<button type="submit">Place Order</button>
 		</form>
 
       <br/>
