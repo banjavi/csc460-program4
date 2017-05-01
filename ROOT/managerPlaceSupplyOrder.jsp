@@ -51,6 +51,8 @@
 				content.append("<td>" + record[0] + "</td>");
 				content.append("<td>" + record[1] + "</td>");
         content.append("<td>" + record[2] + "</td>");
+				double temp = Double.parseDouble(record[3]);
+				record[3] = "$" + String.format("%.2f", temp);
 				content.append("<td>" + record[3] + "</td>");
 				content.append("<td><input type=\"number\" value=\"0\" min=\"0\" name=\"" + barcodeValue +"\" ></td>"); // name is product id
 				content.append("</tr>");

@@ -214,6 +214,20 @@ public class DatabaseController {
 	    return null;
 
 	}
+	public double TotalCost(int orderID){
+	String sql_query = "SELECT SUM(price * CAST(quantity AS number(*,2))) AS \"TOTALCOST\" from banjavi.orders, banjavi.products where banjavi.orders.product_id = banjavi.products.product_id and order_id="+ orderID;
+	// SELECT SUM(price * CAST(quantity AS number(*,2))) AS "TOTALCOST" from banjavi.orders, banjavi.products where banjavi.orders.product_id = banjavi.products.product_id and order_id=3;
+	double total = 0.0;
+	try{
+		ResultSet rs  = statement_.executeQuery(sql_query);
+		while(rs.next()){
+			total=rs.getDouble("TOTALCOST");
+		}
+	}catch(SQLException sqlex) {
+		sqlex.printStackTrace();
+	}
+	return total;
+}
 
 // type is either Manager or Customer
 	public Vector<String> viewAllOrders(String type) {
