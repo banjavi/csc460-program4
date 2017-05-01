@@ -321,12 +321,31 @@ public class dbDummy {
 	
 	public Vector<String> ProductsInCategory(String category){
 		//returns a list of all orderIds containing the product
-		String sql_query = "SELECT product_id, name FROM banjavi.products WHERE category = " + category;
+		String sql_query = "SELECT product_id, name FROM banjavi.products WHERE category = '" + category+"'";
 		try {
 			ResultSet rs = statement_.executeQuery(sql_query);
 			Vector<String> result_orders = new Vector<String>();
 			while(rs.next()) {
 				String temp_record = rs.getInt("PRODUCT_ID") + "##"+ rs.getString("NAME");
+				result_orders.add(temp_record);
+			}
+			return result_orders;
+		} catch (SQLException sqlex) {
+			sqlex.printStackTrace();
+		}
+	return null;
+		
+		
+	}
+	
+	public Vector<String> UsersInType(String type){
+		//returns a list of all orderIds containing the product
+		String sql_query = "SELECT user_id, username FROM banjavi.users WHERE type = '" + type+ "'";
+		try {
+			ResultSet rs = statement_.executeQuery(sql_query);
+			Vector<String> result_orders = new Vector<String>();
+			while(rs.next()) {
+				String temp_record = rs.getInt("USER_ID") + "##"+ rs.getString("USERNAME");
 				result_orders.add(temp_record);
 			}
 			return result_orders;
