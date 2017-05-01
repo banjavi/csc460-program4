@@ -351,8 +351,7 @@ public class DatabaseController {
 //					+ null +", "+ productID + ", " + qty + ")");
 //
 
-public void orderProducts(int userID, Vector<String> productName, Vector<Integer> quantity) {
-			int pID = 0;
+public void orderProducts(int userID, int productID, int quantity) {
 			int oID = 0;
 			@SuppressWarnings("deprecation")
 			java.sql.Date pick_up = new java.sql.Date(0, 0, 0);
@@ -361,7 +360,7 @@ public void orderProducts(int userID, Vector<String> productName, Vector<Integer
 
 			java.sql.Date date_placed = new java.sql.Date(today.getTime());
 			
-			String sql_query = "SELECT distinct count(order_id) FROM banjavi.orders";
+			String sql_query = "SELECT DISTINCT count(order_id) FROM banjavi.orders";
 			
 				ResultSet rs  = statement_.executeQuery(sql_query);
 				while(rs.next()) {
@@ -376,24 +375,22 @@ public void orderProducts(int userID, Vector<String> productName, Vector<Integer
 				while(rs.next()) {
 					type = rs.getString(1);
 				}
-				if(type.equals("Manager"))
+				if(type.equals("Manager")) {
 					pick_up = date_placed;
+					UpdateStock(productID, quantity);
+				}
 			
-			
-			for (int i = 0; i < productName.size(); i++) {
 				sql_query = "SELECT product_id FROM banjavi.products WHERE name= '" + productName.get(i) + "'";
 				
-					rs  = statement_.executeQuery(sql_query);
-					while(rs.next()) {
-					pID = rs.getInt(1);
-					}
+				rs  = statement_.executeQuery(sql_query);
+				while(rs.next()) {
+				pID = rs.getInt(1);
+				}
 				
 				sql_query = "insert into banjavi.orders values(0," + oID + ", " + userID + ", " + date_placed + "," + pick_up +
-						", " + pID + ", " + quantity.get(i) + ")";
+						", " + productID + ", " + quantity + ")";
 				
 					statement_.executeQuery(sql_query);
-			}
+			
 		}
-
-
 }
