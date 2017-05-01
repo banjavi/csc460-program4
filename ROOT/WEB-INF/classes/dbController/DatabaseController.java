@@ -110,8 +110,14 @@ public class DatabaseController {
 			return "error";
 		}
 
-		public Vector<String> FindAllUsers() {
-			String sql_query = "SELECT user_id, username,type FROM banjavi.users order by user_id";
+		public Vector<String> FindAllUsers(String filterType) {
+			String sql_query="";
+			if(filterType.compareTo("All") == 0){
+				 sql_query = "SELECT user_id, username,type FROM banjavi.users order by user_id";
+			 }
+			else{
+				 sql_query = "SELECT user_id, username,type FROM banjavi.users WHERE type = '" + filterType +"' order by user_id " ;
+			}
 			try {
 				ResultSet rs  = statement_.executeQuery(sql_query);
 				Vector<String> result_users = new Vector<String>();

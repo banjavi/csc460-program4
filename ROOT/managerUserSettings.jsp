@@ -13,10 +13,16 @@
         <%
         String currentUser = session.getAttribute("username").toString();
         String currentType = session.getAttribute("type").toString();
-        out.println("Hello " + currentUser + " | " + currentType);
+				String filterType = request.getParameter("filter");
+
+        out.println("Hello " + currentUser + " | " + currentType );
         %>
       </h2>
-      <h3>Talbe of Existing Users</h3>
+      <h3><%
+			if(filterType == null)
+				filterType="All";
+			out.println("Table of Existing Users" + " | Filter By " + filterType); %>
+		</h3>
 
       <%
         DatabaseController dbcontroller = new DatabaseController();
@@ -28,8 +34,9 @@
     		StringBuffer content = new StringBuffer();;
     		content.append("<table>");
 
+				//String filterType = request.getParameter("filter");
     		// asking dbcontroller to list the employee table
-    		Vector<String> vecResult = dbcontroller.FindAllUsers();
+    		Vector<String> vecResult = dbcontroller.FindAllUsers(filterType);
     		if (vecResult == null) {
                content.append("Query result is null!");
           }
@@ -83,6 +90,20 @@
 		    <input type="text" name="type" placeholder="New Type" required>
     		<button type="submit">Submit</button>
 		</form>
+		<br><br>
+
+		<form action="managerUserSettings.jsp" method="POST">
+			<h4>Filter By User Type </h4>
+			<select name="filter">
+		  <option value="All">All</option>
+		  <option value="Manager">Manager</option>
+		  <option value="Employee">Employee</option>
+		  <option value="Customer">Customer</option>
+		</select>
+		<button type="submit">Submit</button>
+
+	</form>
+
 
       <br/>
       <br/>
