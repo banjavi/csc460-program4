@@ -351,7 +351,49 @@ public class DatabaseController {
 //					+ null +", "+ productID + ", " + qty + ")");
 //
 
+public void orderProducts(int userID, Vector<String> productName, Vector<Integer> quantity) {
+			int pID = 0;
+			int oID = 0;
+			@SuppressWarnings("deprecation")
+			java.sql.Date pick_up = new java.sql.Date(0, 0, 0);
+			Calendar date = Calendar.getInstance();
+			java.util.Date today = new java.util.Date();
 
+			java.sql.Date date_placed = new java.sql.Date(today.getTime());
+			
+			String sql_query = "SELECT distinct count(order_id) FROM banjavi.orders";
+			
+				ResultSet rs  = statement_.executeQuery(sql_query);
+				while(rs.next()) {
+					oID = rs.getInt(1) + 1;
+				}
+			
+			
+			sql_query = "SELECT type FROM banjavi.users WHERE user_id= " + userID;
+			
+				rs  = statement_.executeQuery(sql_query);
+				String type = "";
+				while(rs.next()) {
+					type = rs.getString(1);
+				}
+				if(type.equals("Manager"))
+					pick_up = date_placed;
+			
+			
+			for (int i = 0; i < productName.size(); i++) {
+				sql_query = "SELECT product_id FROM banjavi.products WHERE name= '" + productName.get(i) + "'";
+				
+					rs  = statement_.executeQuery(sql_query);
+					while(rs.next()) {
+					pID = rs.getInt(1);
+					}
+				
+				sql_query = "insert into banjavi.orders values(0," + oID + ", " + userID + ", " + date_placed + "," + pick_up +
+						", " + pID + ", " + quantity.get(i) + ")";
+				
+					statement_.executeQuery(sql_query);
+			}
+		}
 
 
 }
