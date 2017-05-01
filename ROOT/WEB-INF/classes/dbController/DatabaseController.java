@@ -10,8 +10,6 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.Vector;
 
-import java.util.Calendar;
-
 public class DatabaseController {
 	static final long serialVersionUID = 1L;
 	  /**
