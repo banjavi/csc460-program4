@@ -12,7 +12,7 @@ import java.util.Vector;
 
 import java.util.Calendar;
 
-public class DatabaseController {
+public class dbDummy {
 	static final long serialVersionUID = 1L;
 	  /**
 	   * A handle to the connection to the DBMS.
@@ -35,7 +35,7 @@ public class DatabaseController {
 	   */
 	  protected String username = null;
 
-	public DatabaseController() {
+	public dbDummy() {
 	    // your cs login name
 	    username = "banjavi"; // need owner of table for insertions
 	    // your Oracle password, NNNN is the last four digits of your CSID
@@ -350,6 +350,7 @@ public class DatabaseController {
 
 public void orderProducts(int userID, int productID, int quantity) {
 			int oID = 0;
+			String type = "";
 			@SuppressWarnings("deprecation")
 			java.sql.Date pick_up = new java.sql.Date(0, 0, 0);
 			Calendar date = Calendar.getInstance();
@@ -368,11 +369,11 @@ public void orderProducts(int userID, int productID, int quantity) {
 				sqlex.printStackTrace();
 			}
 			
-			try {
+			
 			sql_query = "SELECT type FROM banjavi.users WHERE user_id= " + userID;
 			
+	try {
 				ResultSet rs  = statement_.executeQuery(sql_query);
-				String type = "";
 				while(rs.next()) {
 					type = rs.getString(1);
 				}
