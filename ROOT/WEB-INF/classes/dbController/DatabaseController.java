@@ -387,8 +387,9 @@ public void orderProducts(int userID, int productID, int quantity) {
 				pID = rs.getInt(1);
 				}
 				
-				sql_query = "insert into banjavi.orders values(0," + oID + ", " + userID + ", " + date_placed + "," + pick_up +
-						", " + productID + ", " + quantity + ")";
+				sql_query = "insert into banjavi.orders values(0," + oID + ", " + userID + ", "
+						+ "TO_DATE('" + date_placed + "', 'yyyy-mm-dd'),TO_DATE('" + pick_up + "', 'yyyy-mm-dd'), " +
+						productID + ", " + quantity + ")";
 				
 					statement_.executeQuery(sql_query);
 			
