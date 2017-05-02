@@ -68,7 +68,7 @@
 
 				<br><br>
 
-				<form action="managerGetStockInfo.jsp" method="POST">
+				<form action="employeeGetStockInfo.jsp" method="POST">
 					<h4>Filter By Category </h4>
 					<select name="filter">
 						<option value="All">All</option>

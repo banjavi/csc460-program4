@@ -86,11 +86,8 @@
       <br/>
       <br/>
       <br/><br/><br/><br/><br/>
-<% if (currentType.equals("Manager"))  
-   out.write("<a href=\"managerMenu.jsp\">Back</a>")
- else
-	out.write("<a href=\"employeeMenu.jsp\">Back</a>")
-%>
+			<a href="managerMenu.jsp">Back</a>
+
     </center>
   </body>
 </html>
