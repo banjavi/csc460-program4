@@ -45,8 +45,9 @@
 				currentOrderID = oID;
 				content.append("<br/><tr><th><u><h3> Order #" + currentOrderID + " for User #" + record[2] +
 				" placed on " + record[3] + "</h3></u></th></tr>");
+				content.append("<tr><th>Barcode</th><th>Qty</th></tr>");
 			}
-			content.append("<tr><td>" + record[5] + "</td><td>Qty " + record[6] + "</td></tr>");
+			content.append("<tr><td>#" + String.format("%06d", Integer.parseInt(record[5])) + "</td><td>" + record[6] + "</td></tr>");
 		}
 		
     	out.write(content.toString());
